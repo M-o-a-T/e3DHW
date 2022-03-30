@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -17,25 +17,25 @@
 /**
 @file e3DHW_addon_batteries.scad
  ADDON modules for battery holders and PMS projects.
- 
+
  The PMS Power Management System, for DIY electronics (see e3dhw-pms-intro_en.pdf) make use of rechargeable batteries (NiMH, LiIon) and some pcb board.\n
  The ADDONs here allow to make simple, flexible and cheap power suppliers for your circuits.
  (see examples).
- 
+
 @par dependences
     This library requires
       \li \c contrib/flexbatter.repaired.scad or \c contrib/flex<xxx>.stl files
       \li \c e3DHW_base_lib.scad
       \li \c e3DHW_array_utils.scad
       \li \c e3DHW_addon_base.scad
-      
+
  To use this library you must add the following lines to your code:
       \li  <tt> include <e3DHW_base_lib.scad> </tt>
       \li  <tt> include <e3DHW_array_utils.scad> </tt>
       \li  <tt> include <e3DHW_addon_base.scad> </tt>
       \li  <tt> include <e3DHW_addon_batteries.scad> </tt>\n
      <i> but don't allow duplicate includes.</i>
-     
+
 @par Acknowledgment
   The excellent design of battery holders used here is by Heinz Spiess (see https://www.thingiverse.com/thing:456900).\n
   The file in <tt>contrib/flexbatter.repaired.scad</tt> is not the original flile by H.S., but a repaired version to avoid numerous problems encountered with the original.
@@ -97,7 +97,7 @@ Equivalent but faster than  do_flexBatteryA().
 */
 module do_flexBatteryB(code){
     name= str("contrib/flex",code,".stl");
-    import(name);  
+    import(name);
  }
 
 /**
@@ -115,7 +115,7 @@ module carve1_batteryHolder(batt, x =0, y=0, rot= norot){
       translate([-get_battBody(batt)/2+clearance/2,-2*clearance,0])carve_roundRectangle(get_battX(batt)-get_battBody(batt)+clearance, get_battY(batt)+2*clearance, rr=clearance );
     }
  }
- 
+
 /**
 @fn  add2_batteryHolder(batt, x =0,y=0, rot= norot)
 Adds a battery holder to a board.
@@ -138,7 +138,7 @@ _10lx= 25.60;
 _10lh= 9.70 -1.65;
 _lmph= 13.5;
  //! @publicsection
- 
+
 /**
  @fn  add1_LM3914_10LED( x=0, y=0, rot=norot)
  Adds a Vmeter (LM3914) with 10 LEDs bar to a panel.
@@ -146,11 +146,11 @@ _lmph= 13.5;
 */
 
 module add1_LM3914_10LED( x=0, y=0, rot=norot){
-   
+
   translate([x,y,0])rotate(rot){
    add_polyBox  (
-     get_squareArray2 (_lmbx, _lmby),  
-     height  = _10lh,  
+     get_squareArray2 (_lmbx, _lmby),
+     height  = _10lh,
      hstep  = _10lh -BOARDTHICKNESS );
      }
 }
@@ -172,7 +172,7 @@ module carve2_LM3914_10LED( x=0, y=0, rot=norot){
  So you can use any LEDs (1..10) and colors as you like.\n
  For 3xNiMM batteries:
 \image html  nimhvolts.png
-I like to use 3 LEDs: 
+I like to use 3 LEDs:
     \i 1 LED blue: full charged.
     \i 1 LED green: normal charge.
     \i 1 LED red: overdischarge.
@@ -186,13 +186,13 @@ module add1_LM3914_XLED( n=1, pos = "left", x=0, y=0, rot=norot){
 translate([x,y,0])rotate(rot)union(){
    if (pos == "left")
       translate([-4.3,4.3,0])add_polyBox  (
-      get_squareArray2 (_lmbx, _lmby ),  
-      height  = 7,  
+      get_squareArray2 (_lmbx, _lmby ),
+      height  = 7,
       hstep  = 5);
    else
       translate([-4.3, -4.8-_lmby-2*BOXTHICKNESS,0]) add_polyBox  (
-      get_squareArray2 (_lmbx, _lmby ),  
-      height  = 7,  
+      get_squareArray2 (_lmbx, _lmby ),
+      height  = 7,
       hstep  = 5);
    add1_button6x6();
    for (i=[1:n])

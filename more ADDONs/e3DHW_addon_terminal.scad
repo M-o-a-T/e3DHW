@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -18,7 +18,7 @@
 /**
  @file e3DHW_addon_terminal.scad
  Custom connectors strip, using mammut or screw.
- 
+
 This terminals are well situed for AC applications. They are classified in parametric series:
 @par MAMMUT series
   All mammut series uses the metallic core from cheap commercial mammut terminal strips, from 3A to 60A and more. This connector can be used with pin wire terminals.\n
@@ -28,13 +28,13 @@ This terminals are well situed for AC applications. They are classified in param
  This is a very thinny terminal strip, to be used where you have space constraints or as build block in more complex connectors, because is also very flexible. Half connector is protected and half mammut is naked.
 \li <b>serie cubeMammut-FT(\c add1_cubeMammut(type = FT)) </b> \n
 \image html cubemammutFT.jpg
- Like cubeMammut-HT, now the connector is full protected. 
+ Like cubeMammut-HT, now the connector is full protected.
 \li <b>serie simpleMammut-HT (<tt>add1_simpleMammut(type = HT)</tt>) </b> \n
 \image html simpleHT.jpg
 This serie (Half Type) is for box connections: the front, with plaqce for Dymo label, is out of the box and half mammut is naked inside the box.
 \li <b>serie simpleMammut-FT (<tt>add1_simpleMammut(type = FT)</tt>) </b> \n
 \image html simpleFT.jpg
-This serie (Full Type) is for boards: the front is for external wires, and the connector is protected. 
+This serie (Full Type) is for boards: the front is for external wires, and the connector is protected.
 \li <b>serie simpleMammut-DT (<tt>add1_simpleMammut(type = DT)</tt>) </b> \n
 \image html simpleDT.jpg
 This serie (Double Type) is more like the original mammut strip: the front is in both side of the connector. \n To be use standalone, on DIN rails, etc.
@@ -53,7 +53,7 @@ This serie (Double Type) is more like the original mammut strip: the front is in
       \li \c e3DHW_addon_base.scad
       \li \c e3DHW_array_utils.scad
       \li \c e3DHW_mammut_data.scad
-      
+
   To use this library you must add the following lines to your code:
       \li  <tt> include <e3DHW_base_lib.scad> </tt>
       \li  <tt> include <e3DHW_addon_base.scad> </tt>
@@ -61,13 +61,13 @@ This serie (Double Type) is more like the original mammut strip: the front is in
       \li  <tt> include <e3DHW_hardware_data.scad> </tt>
       \li  <tt> include <e3DHW_addon_terminal.scad> </tt>
       \li <i>but don't allow duplicate include.</i>
- 
+
  @author    Marco Sillano
  @version 0.1.1    18/03/2018 base version
  @version 0.1.2   29/07/2019 bugs corrections,
-                    better use: parameters check and standization, 
+                    better use: parameters check and standization,
                     Doxygen comments
- @version 0.1.3      
+ @version 0.1.3
  @copyright GNU Lesser General Public License.
  @example e3DHW_addon_terminal_examples.scad
 */
@@ -83,7 +83,7 @@ DT =  2;   ///< double front: standalone, for DIN rail...
 /**
    @fn add_simpleMammut( n=undef, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot)
    Mammut strip for external connections.
-   Connector with 3 flawors: 
+   Connector with 3 flawors:
       \li HT - half type serie
       \li FT - full type serie
       \li DT - double type serie.
@@ -108,7 +108,7 @@ module add_simpleMammut( n=undef, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot
    _HTpoly=[[0,_getMxT(_idx)-5],[_getMyTot(_idx)+3,_getMxT(_idx)-5],
       [_getMyTot(_idx)+3,_getMxT(_idx)+_getDScr(_idx)+0.5],[_getMbD(_idx)+3.8,_getMxT(_idx)+_getDScr(_idx)+10],
       [0,_getMxT(_idx)+_getDScr(_idx)+10]];
- 
+
    _FTpoly=[[0,0],[_getMyTot(_idx)+3,0],
       [_getMyTot(_idx)+3,_getMxT(_idx)+_getDScr(_idx)+0.5],[_getMbD(_idx)+3.8,_getMxT(_idx)+_getDScr(_idx)+10],
       [0,_getMxT(_idx)+_getDScr(_idx)+10]];
@@ -121,7 +121,7 @@ module add_simpleMammut( n=undef, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot
          union(){
             _do_simpleMammut(_uselen, n, _idx, _FTpoly);
             translate([0,2*_getMxT(_idx)-10,_uselen])rotate([180,0,0])_do_simpleMammut(_uselen, n, _idx,_FTpoly);
-            }        
+            }
          }
       else
          _do_simpleMammut(_uselen, n, _idx, mpoly=(type == FT)? _FTpoly:_HTpoly);
@@ -146,12 +146,12 @@ gets the standard z step for simpleMammut.
 function get_simpleMammutStep( mmq=1)=
 (_getMzStep(_get_MIdx(mmq)));
 
-/** 
+/**
    @fn carve_simpleMammut (n, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot)
    companion carve module for add1_simpleMammut(). Optional, use it to re-carve
   */
 module carve_simpleMammut (n, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot){
-   _min = _getMzStep(_get_MIdx(mmq))*n; 
+   _min = _getMzStep(_get_MIdx(mmq))*n;
    _idx = _get_MIdx(mmq);
    translate([x, y, 0])rotate(rot)rotate([0,0,90])translate([0,- _getMxT(_idx)-_getDScr(_idx)-10, 0]) _do_carving(max(len,_min), n, _idx, type);
    }
@@ -159,7 +159,7 @@ module carve_simpleMammut (n, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot){
 /**
   @fn add_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = undef, exBar = 1, exScr=0,rot =norot )
    Thinny mammut strip for internal connections.
-   Connector with 2 flawors: 
+   Connector with 2 flawors:
       \li HT - half type serie
       \li FT - full type serie
 
@@ -175,7 +175,7 @@ module carve_simpleMammut (n, mmq=1, len=1, type = FT, x= 0, y=0, rot =norot){
            \li if \c space is defined, interaxis distance becomes <tt>space + _getMbD(idx)</tt> (barrel diameter).
            \li if \c step is defined, and \c space is \c undef, \c step becomes interaxis distance ( it must be greater than <tt>_getMbD(idx)</tt> (barrel diameter).
 
-  @param  exBar: extra space on x axis (barrel), 
+  @param  exBar: extra space on x axis (barrel),
   @param  exScr: extra space on y axis (screws).
 */
 module add_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = undef, exBar = 2, exScr=0, x= 0, y=0, rot =norot ){
@@ -189,7 +189,7 @@ module add_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = und
    assert (is_undef(space) ||(space > 0), " parameter space must be positive");
    if (!is_undef(step))assert(step >_getMbD(_idx),str(" parameter step (", step, ") less than mammut diameter ",_getMbD(_idx) ," mm</font>") );
  //
- // apply rules to get the vector of the current parameters:[0] used 'space', [1] used 'step', [2] used 'len'  
+ // apply rules to get the vector of the current parameters:[0] used 'space', [1] used 'step', [2] used 'len'
    p = _get_cubeParams(n, _idx, len, step, space);
  // now builds connectors
    _x_Fcube = _getMyTot(_idx)+p[0]+exScr;
@@ -199,20 +199,20 @@ module add_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = und
       translate([x,y,0])rotate(rot)rotate([0,0,90]){
          if (type == FT)cube([_x_Fcube,_y_Fcube,_z_Fcube]);
          if (type == HT)cube([_x_Fcube,_y_Fcube/2+1,_z_Fcube]);
-         }   
+         }
       carve_cubeMammut(n=(n), mmq=(mmq), len=(len), type = (type), step=(step), space = (space), exBar = (exBar), exScr= (exScr), x= (x), y=(y), rot =(rot));
-      } 
+      }
    }
- 
+
 /**
 @fn get_cubeMammutSize( mmq=1, type = FT,  exBar = 1)
 gets the real x dimension of a cubeMammut.
   @param  mmq: cable section in mmq.
   @param  type:  FT (default) or HT
-  @param  exBar: extra space on x axis (barrel), 
+  @param  exBar: extra space on x axis (barrel),
 */
 function get_cubeMammutSize( mmq=1, type = FT, exBar = 2)=(
-let(_idx = _get_MIdx(mmq), _y_Fcube = _getMxT(_idx)+2*exBar) 
+let(_idx = _get_MIdx(mmq), _y_Fcube = _getMxT(_idx)+2*exBar)
 (type == FT)?_y_Fcube:_y_Fcube/2+1);
 
 /**
@@ -227,14 +227,14 @@ gets the actual z step for cubeMammut.
 function get_cubeMammutStep(n=undef, mmq=1, len=0, step= undef, space = undef)=
 ( _get_cubeParams(n, _get_MIdx(mmq), len, step, space)[1]);
 
-/** 
+/**
    @fn carve_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = undef, exBar = 1, exScr=0, x= 0, y=0, rot =norot )
    companion carve module for add1_cubeMammut(). Optional, for re-carving.
   */
 module carve_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = undef, exBar = 2, exScr=0, x= 0, y=0, rot =norot ){
    // like add_cubeMammut(), tests not required.
    _idx = _get_MIdx(mmq);
- // apply rules to get the vector of the current parameters:[0] used 'space', [1] used 'step', [2] used 'len'  
+ // apply rules to get the vector of the current parameters:[0] used 'space', [1] used 'step', [2] used 'len'
    p = _get_cubeParams(n, _idx, len, step, space);
   // now builds carve
    _h0 = (p[2]- p[1]*n)/2;
@@ -252,7 +252,7 @@ module carve_cubeMammut(n=undef, mmq=1, len=0, type = FT, step= undef, space = u
 _termX = 10;          ///<  terminals 3MA: single block length
 _termY = 12;          ///<  terminals 3MA: large
 _termZ = 5;           ///<  terminals 3MA: vertical
-_term_extraX = 4;     ///<  terminals 3MA: min_X_total = _termX * n + _term_extraX 
+_term_extraX = 4;     ///<  terminals 3MA: min_X_total = _termX * n + _term_extraX
 
 //! @publicsection
 /**
@@ -260,7 +260,7 @@ _term_extraX = 4;     ///<  terminals 3MA: min_X_total = _termX * n + _term_extr
 Block terminal with M3 screws.
 @note requires 5mm M3 screw and 7x1 washer
 @param n number of elements
-@param h total length. Adjusted, rules: 
+@param h total length. Adjusted, rules:
     \li <tt>min_X_total = n*_termX + _term_extraX</tt>
     \li if \c len < \c min_X_total, len is adjusted to \n min_X_total (without warning)
     \li if \c len >= \c min_X_total, connectors are centered.
@@ -288,7 +288,7 @@ _h1 = (len < _termX*n+_term_extraX)? _termX*n+_term_extraX:len;
 _h0 = (_h1 -_termX*n)/2;
 translate([x,y,0])rotate(rot)for (i=[0:1:n-1])
 translate([_h0+_termX/2 +i*_termX,_termY/2, 0]) _terminalBlockB();
-} 
+}
 // ==================== UTILITIES: to design custom connectors
 /**
 @fn do_nakedModel(idx, exBar=0,exScr=0)
@@ -300,8 +300,8 @@ This centered model is used to carve connectors. The barrel and screws can be ex
 */
 module do_nakedModel(idx, exBar=0,exScr=0, half=false){
     rotate([-90,0,0])union(){
-    translate([ _getSdist(idx),0,0])polyhole(_getMyTot(idx)-_getMbD(idx)/2+exScr,_getDScr(idx));   
-    if (! half)translate([-_getSdist(idx),0,0])polyhole(_getMyTot(idx)-_getMbD(idx)/2+exScr,_getDScr(idx)); 
+    translate([ _getSdist(idx),0,0])polyhole(_getMyTot(idx)-_getMbD(idx)/2+exScr,_getDScr(idx));
+    if (! half)translate([-_getSdist(idx),0,0])polyhole(_getMyTot(idx)-_getMbD(idx)/2+exScr,_getDScr(idx));
     translate([-_getMxT(idx)/2-exBar,0,0]) rotate([90,0,90])resize([_getMbD(idx)-0.5,_getMbD(idx),_getMxT(idx)+2*exBar])polyhole(_getMxT(idx)+2*exBar, _getMbD(idx));   // resaize 0.5: barrel is oval
    }
 }
@@ -371,7 +371,7 @@ module _do_carving(h,n,idx, type=FT, exBar=14,exScr=7 ){
 }
 
       // apply rules to get actual value of cube parameters
-function _get_cubeParams ( n, _idx, len, step, space) = let( _min = is_undef(space)? 
+function _get_cubeParams ( n, _idx, len, step, space) = let( _min = is_undef(space)?
               (is_undef(step)?
                    _getMzStep(_idx)*(n+1) -_getMbD(_idx):
                    step *(n+1) -_getMbD(_idx)):

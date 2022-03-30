@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -20,14 +20,14 @@ include <e3DHW_array_utils.scad>
 include <e3DHW_addon_base.scad>
 include <e3DHW_hardware_data.scad>
 
-// 
+//
 module all_base_addon(){
 difference(){
    union(){
       rectangleBase(80, 250, fill=100, x=10); // a solid base
       // here  add_xxxx addons
       add_rectangleBox(50, 20, closed=true, x=35, y= 2);
-      add1_polySupport([[20,10,-11]], 15, 6, 8, angle= 45, horiz = false); 
+      add1_polySupport([[20,10,-11]], 15, 6, 8, angle= 45, horiz = false);
       add_polyBox(arduinoUnoR3Vertex, x=12, y = 40);
       add1_polyTower(15, arduinoUnoR3Holes, cbase=true, x=12, y=150);
       add_text("addons", size=6, h=80,x=10, y=110);
@@ -40,24 +40,24 @@ difference(){
       add1_milsBox(6, 1,x =30,y=220);
       add1_milsVBox(1, 6,x =55,y=220);
       add1_milsVBox(6, 1,x =65,y=220);
-      add1_button6x6(11, x=30, y = 240); 
-      add1_SButton6x6(4.3,x=50, y =240); 
+      add1_button6x6(11, x=30, y = 240);
+      add1_SButton6x6(4.3,x=50, y =240);
       translate([50,260,5])rotate([180,0,0])SButton_central();
   }
  // here  carve_xxxx addons
     carve_rectangleBox(50, 20, closed=true, x=35, y= 2);
  //   carve_polyBox(arduinoUnoR3Vertex, x=12, y = 40);
     carve2_tower(10, x=23, y=110);
-    carve2_polySupport([[20,10,-5]], 15, 6, 8, angle= 45, horiz = false); 
+    carve2_polySupport([[20,10,-5]], 15, 6, 8, angle= 45, horiz = false);
     carve2_polySupport([[30,130,3]], 15, 6, 8, horiz = true);
     carve2_polyTower(15, arduinoUnoR3Holes, cbase=true, x=12, y=150);
     carve2_LED5holder(x =20, y=220);
     carve2_milsVBox(1, 6,x =55,y=220);
     carve2_milsVBox(6, 1,x =65,y=220);
-    carve2_button6x6(11, x=30, y = 240); 
-    carve2_SButton6x6(4.3,x=50, y =240); 
+    carve2_button6x6(11, x=30, y = 240);
+    carve2_SButton6x6(4.3,x=50, y =240);
    }
- // one more board  
+ // one more board
  difference(){
    rectangleBase(60, 160, fill=100, x= -70); // a new solid base
       // here  carve_xxxx addons
@@ -71,7 +71,7 @@ difference(){
    carve_colander (d=4, s=6, rows=3, cols = 6, x=-60, y=120);
    carve_text(txt = "carved", size=6,h = -60, x=-10, y=150);  // note h < 0
    }
-}   
+}
 
 module test_button6x6(){
    difference(){
@@ -95,9 +95,9 @@ module test_button6x6(){
       translate([-EXTRA,60,-EXTRA])cube([210,50, 40]); // to section extra SButton6x6 for 4.3
      }
    }
-   
+
 // base support for a scheduled irrigation system with sonoff-basic + humidity meter to fit in Itead box.
-// see photos there https://github.com/msillano/sonoff_watering/blob/master/watering-sonoff-en01.pdf 
+// see photos there https://github.com/msillano/sonoff_watering/blob/master/watering-sonoff-en01.pdf
 module watering_Sonoff04(){
    difference(){
       union() {

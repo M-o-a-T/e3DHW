@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -44,7 +44,7 @@ module show_all(){
                translate([xoffset, 0,0])do_DINClip(clip, get_min_h(clip), clipD); // makes the DIN clip centered
                cube([width, 8, get_min_h(clip)]);  // your custom project, starting (0,0)
                }
-            } 
+            }
 //(*) note: the clips have different minimum sizes, so they are not "always" interchangeables!
   }
 

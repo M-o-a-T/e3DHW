@@ -1,5 +1,5 @@
 # e3DHW-make-DIY-electronics-hardware-like-a-professional
- 
+
 The evolution of the electronics from the single components to the macro-sets (boards and shields)
 was positive, allowing the rapid prototyping of complex projects until a few years ago
 unimaginable, thus bringing new audiences of enthusiasts to electronics.
@@ -12,7 +12,7 @@ The use of the 3D printer allows to obtain tailor-made structures without the ne
 workshop machines for cutting, bending or drilling. Also many accessories (ADDONs) such as
 terminals, connectors etc. can be inserted into the 3D project by simplifying assembly and wiring.
 
-![Watering Sonoff](images/sonoff400.jpg  "Sonoff watering timer") 
+![Watering Sonoff](images/sonoff400.jpg  "Sonoff watering timer")
 
 - For the full story, read the e3DHW_HOWTO_en.pdf file (versione italiana e3DHW_HOWTO_it.pdf)
 - OpenScad libraries, last stable version, in dir OpenScadLibraries :)
@@ -37,15 +37,15 @@ All OpenScad libraries are designed to be very easy to use in your projects:
 - the use of Doxigen gives us the help e3DHWref.1.X.chm, a complete e3DHW library reference, indispensable for the e3DHW users.
 - any library as a xxxx_examples.scad file, to show the use. All examples are also with the STL files, to preview the results.
 
-How to use "e3DHW_xxxxxx.scad" libraries? 
-- In your OpenSCAD file add on top "include <e3DHW_xxxxxxxxx.x.x.scad>;" for all files you need for your project (see 
+How to use "e3DHW_xxxxxx.scad" libraries?
+- In your OpenSCAD file add on top "include <e3DHW_xxxxxxxxx.x.x.scad>;" for all files you need for your project (see
 documentation and examples files).
 - put all required libraries in the same directory as your project.
 - create also the dir ./contrib, and copy there all the required files.
 - Then you can use all public modules as you like.
 
 How to use e3DHWref.1.X.chm?
-- Download it and use a help viewer (MS help viewer, Sumatra PDF, etc) 
+- Download it and use a help viewer (MS help viewer, Sumatra PDF, etc)
 - If you see the index, but not the content, it has been because windows security has "blocked" the chm file. To see it try the following:
   - From windows explorer, Right click the dowloated .chm file and select properties.
   - On the General tab, if you see an Unblock button, click it.

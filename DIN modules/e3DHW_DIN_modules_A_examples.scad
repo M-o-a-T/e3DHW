@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -18,7 +18,7 @@
 include <e3DHW_base_lib.scad>
 include <e3DHW_array_lib.scad>
 include <e3DHW_addon_base.scad>
-include <e3DHW_hardware_data.scad> 
+include <e3DHW_hardware_data.scad>
 include <e3DHW_DIN_rail_lib.scad>
 include <e3DHW_DIN_boxes_lib.scad>
 include <e3DHW_addon_terminal.scad>

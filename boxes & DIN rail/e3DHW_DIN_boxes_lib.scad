@@ -15,7 +15,7 @@
 */
 /**
 @file e3DHW_DIN_boxes_lib.scad
-Contains parametric general purpose boxes and separators and boxes for DIN rail. 
+Contains parametric general purpose boxes and separators and boxes for DIN rail.
 @par General purpose boxes
    In this library are 2 modules buiding boxes: a cuboid box rectangleBox() and a genaral purpose do_standalone_polyBox(). This one has the base polygonal, defined by an array of points.\n
    Both boxes have a lid fixabe in different ways. The cover and the bottom can becomes lateral faces turning the box, so the panel can be oblique.\n
@@ -44,7 +44,7 @@ Contains parametric general purpose boxes and separators and boxes for DIN rail.
 
 @htmlonly <a name='vertexbox' ></a> @endhtmlonly
 @par Polygonal DIN shapes: rules
-    For great freedom, som DIN modules requires an array of points for shape definition. 
+    For great freedom, som DIN modules requires an array of points for shape definition.
    \image html dinarray.png
    The 2D shape MUST be placed as in picture:
    \li  all \c y measurements references to the top of DIN rail.\n
@@ -64,7 +64,7 @@ Shoulder height (\ref DINPOT) and TOP width (\ref DIN_BOX_TOP_WIDTH) are fixed b
 The length is in mm for separtors, and in <i>half-modules</i> for boxes (1 module = 18 mm) see get_H().
 In any module the DIN clip for the rail is usually choose between 2 alternatives, based on DIN element length, see get_Clip() \n
 By default, Din separators don't have towers, boxes have.
-See 
+See
 
 @htmlonly <a name='lidstyle' ></a> @endhtmlonly
 @par Lid styles
@@ -74,7 +74,7 @@ See
 3 - \ref LSOUT   the lid coverts the box sides.\n
 4 - \ref LSIN    lid is inside the box sides.\n
 \image html toplid.jpg
-The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral walls (e.g. standalone boxes).\n 
+The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral walls (e.g. standalone boxes).\n
    The stile LSIN is preferable when the panel is the bottom or a lateral side, car the box now hides the lid (e.g. rotated standalone box, DIN boxes).\n
    The style LSTOW is used in bigDINBox() where the box must fit a larger board.
 
@@ -82,7 +82,7 @@ The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral
    A box with many addons can be difficult to print: it contains many holes and many small surfaces.
    The main issue on my printer is the ooze in not-printing moves. \n
    I try to reduce ooze using lower temperature and accordingly slow speed (I use 80%-60% of usual 70 mm/s in Repetier).
-   
+
 @par dependences
     This library requires:
             \li \c MCAD/polyholes.scad
@@ -103,8 +103,8 @@ The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral
 
  @author    Marco Sillano
  @version 0.1.1    18/03/2018 base version.
- @version 0.1.2   29/07/2019 Bugs correction. 
-                   Better use: parameters check and standization. 
+ @version 0.1.2   29/07/2019 Bugs correction.
+                   Better use: parameters check and standization.
                    Doxygen comments.
  @copyright GNU Lesser General Public License.
  @example  e3DHW_DIN_boxes_examples.scad
@@ -149,7 +149,7 @@ _stop_height  = 1.2;   // stop step for box with lid: height
  // return valkue or 0
 function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray[i][1] == 0)&&( m < parray[i][0])? parray[i][0]:m, (i+1))) ;
 
-//! @publicsection 
+//! @publicsection
  // -------------------------------  box standalone
   /**
   @fn do_standalone_polyBox(vertex, height = 20, lidAHoles = undef, lidStyle = LSOUT, lidThick = BOARDTHICKNESS, lidFill = 100, bottomThick=TOPTHICKNESS, bottomFill = 100, sideThick = NOTOPTHICKNESS, towerAHoles = undef, towerRadius=3, x=0, y=0, rot = norot, round_box=_slabcorner)
@@ -164,7 +164,7 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
   @param lidStyle one of \ref LSNONE, \ref LSTOW, \ref LSOUT, \ref LSIN, default LSOUT: it defines the @htmlonly <a href='#lidstyle'>lid styles</a> @endhtmlonly.
   @param lidThick the lid thickness. Default BOARDTHICKNESS
   @param lidFill lid filling control: a value in percent: <tt>0 (empty)..100 (solid)</tt>.Default DEFAULTFILL.
-  @param bottomThick box bottom thickness. Default TOPTHICKNESS. 
+  @param bottomThick box bottom thickness. Default TOPTHICKNESS.
   @param bottomfill  box bottom perforation control: a value in percent: </tt>0 (empty)..100 (solid)</tt>. Default DEFAULTFILL.
   @param sideThick  box lateral sides thickness. Default NOTOPTHICKNESS.
   @param towerAHoles is an array3 of towers for lid fixing. Defines the holes on tower top: <tt>[[t0.x, t0.y, t0.d],..]</tt>. See do_nuthole() for codes.\n
@@ -175,8 +175,8 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
   module do_standalone_polyBox(vertex, height = 20, lidAHoles = undef, lidStyle = LSOUT, lidThick = BOARDTHICKNESS, lidFill = 100, bottomThick=TOPTHICKNESS, bottomFill = 100, sideThick = NOTOPTHICKNESS, towerAHoles = undef, towerRadius=3, x=0, y=0, rot = norot, round_box=_slabcorner){
    assert(is_arrayOK(vertex, 2, 3), "test on array failed");
    // min lid 4x4
-   assert((get_maxX(vertex) - get_minX(vertex)) >= 2*sideThick + 4, "box length too small");  
-   assert((get_maxY(vertex) - get_minY(vertex)) >= 2*sideThick + 4, "box width too small"); 
+   assert((get_maxX(vertex) - get_minX(vertex)) >= 2*sideThick + 4, "box length too small");
+   assert((get_maxY(vertex) - get_minY(vertex)) >= 2*sideThick + 4, "box width too small");
    if(! is_undef(lidAHoles))  // optional
       assert(is_arrayOK(lidAHoles, 3, 1), "test on array failed");
    assert ((lidStyle >= LSNONE) && (lidStyle <= LSIN),"lidStyle value not allowed");
@@ -184,11 +184,11 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
        assert(is_arrayOK(towerAHoles, 3, 1), "test on array failed");
    assert ((lidFill >=0) && (lidFill <= 100),"lidFill out of bounds: 0..100 (percentage)");
    assert ((bottomFill >=0) && (bottomFill <= 100),"bottomfill out of bounds: 0..100 (percentage)");
-   assert (round_box < 3 * sideThick, str("round_box value too big: max ", 3*sideThick)); // the exact value is sqr(2)/(sqr(2)-1) = 3.414 
+   assert (round_box < 3 * sideThick, str("round_box value too big: max ", 3*sideThick)); // the exact value is sqr(2)/(sqr(2)-1) = 3.414
    _boxUseH = (lidStyle == LSOUT ? height - lidThick : height );
-   _towerH = (lidStyle  == LSOUT ? _boxUseH-BOARDTHICKNESS -_stop_height- _lidclearance 
+   _towerH = (lidStyle  == LSOUT ? _boxUseH-BOARDTHICKNESS -_stop_height- _lidclearance
                :(lidStyle  == LSTOW?_boxUseH -BOARDTHICKNESS-_lidclearance
-                 :_boxUseH-BOARDTHICKNESS -lidThick - 2*_lidclearance)); 
+                 :_boxUseH-BOARDTHICKNESS -lidThick - 2*_lidclearance));
    _towerUseH = max (0, _towerH);
    // n.b. BOARDTHICKNESS is added by add1_polyTower to height
  //  assert ((_towerUseH >= 2.65), "box height too small"); // magic 2.65: with defaults assert ok for h >= 10 mm
@@ -199,7 +199,7 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
          _hborder = min(_stop_width /2, _boxUseH-lidThick-_lidclearance -EXTRA);
          if (lidStyle == LSIN) translate([0,0,max(EXTRA,_boxUseH - lidThick - _lidclearance-_hborder)]){  // stop ring if lidStyle == LSIN
             difference(){
-               linear_extrude(height = _hborder) offset(delta=-(sideThick-EXTRA)) polygon(vertex); 
+               linear_extrude(height = _hborder) offset(delta=-(sideThick-EXTRA)) polygon(vertex);
                translate([0,0,-EXTRA])linear_extrude(height =_stop_width+2*EXTRA)
                    offset(delta=-(sideThick +_stop_height)) polygon(vertex);
                } // difference ends
@@ -210,7 +210,7 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
     if ((lidStyle  != LSNONE)&&(! is_undef(towerAHoles)))  carve2_polyTower(height = _towerUseH, holes = towerAHoles, towerd=2*towerRadius);
       }// difference ends
    }
-  
+
 /**
   @fn do_standalone_polyLid(vertex, height = 20, lidAHoles = undef, lidStyle = LSOUT, lidThick = BOARDTHICKNESS, lidFill = 100, bottomThick=TOPTHICKNESS, bottomFill = 100, sideThick = NOTOPTHICKNESS, towerAHoles = undef, towerRadius=3, x=0, y=0, rot = norot, round_box=_slabcorner)
   companion lid module for do_standalone_polyBox(). Use it with same parameters.
@@ -226,27 +226,27 @@ module do_standalone_polyLid(vertex, height = 20, lidAHoles = undef, lidStyle = 
        assert(is_arrayOK(towerAHoles, 3, 1), "test on array failed");
    assert ((lidFill >=0) && (lidFill <= 100),"lidFill out of bounds: 0..100 (percentage)");
    assert ((bottomFill >=0) && (bottomFill <= 100),"bottomfill out of bounds: 0..100 (percentage)");
-   translate([x,y,0])rotate(rot)translate([-10,0,0])mirror([1,0,0]) 
+   translate([x,y,0])rotate(rot)translate([-10,0,0])mirror([1,0,0])
    difference(){
       union(){
          intersection(){
             polyBase(vertex,get_tower2holes(lidAHoles, 0), lidFill, lidThick);  // top standard get_tower2holes() give an array of 'holes' dia=0: this force bases construction.
             if (lidStyle == LSIN)
-                translate([0,0,-EXTRA])linear_extrude(height = lidThick+2*EXTRA) 
+                translate([0,0,-EXTRA])linear_extrude(height = lidThick+2*EXTRA)
                     offset(delta=-(sideThick+_lidclearance)) polygon(vertex);   // reduces lid for LSIN
             }
          if (lidStyle == LSOUT)difference(){                                   // add stop border for LSOUT
-               translate([0,0,EXTRA])linear_extrude(height = lidThick+_stop_height-EXTRA) 
-                    offset(delta=-(sideThick+_lidclearance)) polygon(vertex); 
+               translate([0,0,EXTRA])linear_extrude(height = lidThick+_stop_height-EXTRA)
+                    offset(delta=-(sideThick+_lidclearance)) polygon(vertex);
                translate([0,0,0])linear_extrude(height = lidThick+_stop_height+2*EXTRA)
-                    offset(delta=- _stop_width) polygon(vertex); 
+                    offset(delta=- _stop_width) polygon(vertex);
          }
       } // ends union
     if(!is_undef(lidAHoles)) for (n =[0:1:len(lidAHoles)-1])                  // now holes
-         translate([lidAHoles[n].x,lidAHoles[n].y,0]) 
+         translate([lidAHoles[n].x,lidAHoles[n].y,0])
          do_nuthole(lidAHoles[n].z, ((lidStyle==LSOUT)? lidThick+_stop_height-EXTRA:lidThick));
     } // ends difference
-} 
+}
 
 /**
   @fn rectangleBox( length, width, height, lidHole = -7, lidThick = BOARDTHICKNESS, lidFill = 100, towerHole = -58, bottomThick = TOPTHICKNESS, bottomFill = 100, lidStyle = LSOUT, x=0, y=0, rot = norot)
@@ -272,26 +272,26 @@ module do_standalone_polyLid(vertex, height = 20, lidAHoles = undef, lidStyle = 
   @param lidStyle  default LSOUT (lid is panel).
 */
 module rectangleBox( length, width, height, lidHole = -7, lidThick = BOARDTHICKNESS, lidFill = 100, towerHole = -58, bottomThick = TOPTHICKNESS, bottomFill = 100, lidStyle = LSOUT, x=0, y=0, rot = norot){
-   assert(length >= 15, "box length too small, min 15"); 
-   assert(width >= 15, "box width too small, min 15"); 
-   assert(height >= 10, "box height too small, min 10"); 
+   assert(length >= 15, "box length too small, min 15");
+   assert(width >= 15, "box width too small, min 15");
+   assert(height >= 10, "box height too small, min 10");
    // tower size tune based on towerHole style
    _towRad = get_towerRadius(towerHole, lidStyle);
    // towers borders distance
    _dt = get_towerDistance(towerHole, lidStyle);
    _vertex = get_squareArray2(length,width);
    _baseHoles = get_squareArray3(length,width,_dt,_dt,lidHole);
-     // special for -2xxx holes, rectangular shape   
+     // special for -2xxx holes, rectangular shape
    _towerHoles = [ for(i= [0:1:3])[_baseHoles[i].x, _baseHoles[i].y, (towerHole > -3000) &&(towerHole <= -2000)? (-2045 -i*90):towerHole ]];
     // boardHole == 0 : no holes on board, towerHole == 0: no towers at all.
    do_standalone_polyBox(_vertex, height,(lidHole == 0? undef:_baseHoles), lidStyle, lidThick, lidFill, bottomThick, bottomFill, NOTOPTHICKNESS,(towerHole == 0? undef:_towerHoles), _towRad, x=(x),y=(y), rot =(rot));
     if ((lidStyle != LSNONE) && (lidStyle != LSTOW)){
   if (OPTION_BOXPRINT)
-       do_standalone_polyLid(_vertex, height, (lidHole == 0? undef:_baseHoles),  lidStyle, lidThick, lidFill, bottomThick, bottomFill, NOTOPTHICKNESS,(towerHole == 0? undef:_towerHoles), _towRad, x=(x),y=(y), rot =(rot)); 
-  else 
-     translate([-10,0,height+1])rotate([0,180,0]) 
+       do_standalone_polyLid(_vertex, height, (lidHole == 0? undef:_baseHoles),  lidStyle, lidThick, lidFill, bottomThick, bottomFill, NOTOPTHICKNESS,(towerHole == 0? undef:_towerHoles), _towRad, x=(x),y=(y), rot =(rot));
+  else
+     translate([-10,0,height+1])rotate([0,180,0])
       do_standalone_polyLid(_vertex, height, (lidHole == 0? undef:_baseHoles),  lidStyle, lidThick, lidFill, bottomThick, bottomFill, NOTOPTHICKNESS,(towerHole == 0? undef:_towerHoles), _towRad, x=(x), y=(y), rot =(rot));
- 
+
       }
   }
 
@@ -302,7 +302,7 @@ module rectangleBox( length, width, height, lidHole = -7, lidThick = BOARDTHICKN
   @image html DINcustom.jpg
    If length is 4 mm or more, it becomes a box with lid, but whitout towers and holes: the lid can be fixed with glue or hot wax (lidStyle = LSIN).
   @param vertex  2D polygon definition.
-  @param length the separator length [mm], acceps any value. 
+  @param length the separator length [mm], acceps any value.
   @param width this value is used to build the DIN clip. Default \c xauto: the width is calculated automatically from the vertex points on x axis: [0,0]... [width,0]
   @param uclip acceps different options: @parblock
        \li:\c xauto: this module choses between "NSS" or "SPF", based on length (default).
@@ -321,7 +321,7 @@ module polyDINSeparator(vertex = undef, length = 2, width=xauto, uclip = xauto, 
   //   assert((get_xq(_useCLIP)==0), str("The DIN clip ",_useCLIP," not allowed for separators"));
     _cutX = get_rail2top(_useCLIP) - SEPARATORTHICKNESS;
     _useD = (width==xauto?_getD(vertex):width);
-    _useArray = get_cut2_shape(vertex,_cutX-EXTRA); 
+    _useArray = get_cut2_shape(vertex,_cutX-EXTRA);
    translate([x,y,0])rotate(rot)union(){
    translate([get_ClipTrnsX(_useCLIP, _useD),get_rail2top(_useCLIP)+EXTRA,0])do_DINClip(_useCLIP, length, get_ClipWidth(_useCLIP, _useD));
      if (length <4){
@@ -332,16 +332,16 @@ module polyDINSeparator(vertex = undef, length = 2, width=xauto, uclip = xauto, 
    if (OPTION_BOXPRINT)
        do_standalone_polyLid(_useArray, height = length, lidAHoles = undef, lidStyle = LSIN, lidThick = (lidThick), lidFill = fill, bottomThick=lidThick, bottomFill = fill, sideThick = boxThick, towerAHoles = undef, towerRadius=3);
   else
-      translate([-10,0,length+0.1])rotate([0,180,0]) 
+      translate([-10,0,length+0.1])rotate([0,180,0])
       do_standalone_polyLid(_useArray, height = length, lidAHoles = undef, lidStyle = LSIN, lidThick = (lidThick), lidFill = fill, bottomThick=lidThick, bottomFill = fill, sideThick = boxThick, towerAHoles = undef, towerRadius=3);
      }
     }
   }
-  
+
 
 /**
   @fn boxDINSeparator(length, top = DINTOP, width= DINWIDTHM, leftless=0, rigthless=0, uclip = xauto, lidThick = SEPARATORTHICKNESS, boxThick = SEPARATORTHICKNESS, fill = DEFAULTFILL, x=0, y=0, rot = norot)
-   This kind of separator is used as lid for open DIN boxes, and as filler to meet container dimensions. For that the length is in mm. 
+   This kind of separator is used as lid for open DIN boxes, and as filler to meet container dimensions. For that the length is in mm.
   @image html DINboxsep.png
   Uses polyDINSeparator(), with vertex builts by get_DINvertex(), using standard DIN profiles parameters.
   @param length [mm] of the separator, if \c length > 4 mm the separator bocomes a box with cover.
@@ -359,7 +359,7 @@ module boxDINSeparator(length, top = DINTOP, width= DINWIDTHM, leftless=0, rigth
 @fn  simpleDINBox(size_hm, top = DINTOP, width= DINWIDTHM, leftless=0, rigthless=0, uclip = xauto, lidHole = -7, lidThick = TOPTHICKNESS, lidFill = 100, towerHole = -58, bottomThick = TOPTHICKNESS, bottomFill = 100, boxThick = NOTOPTHICKNESS, lidStyle = LSIN, x=0, y=0, rot = norot)
   Containers (boxes) for DIN rail, defined by standard parameters.
   The box can contains one or more horizontal or vertical PCBs (addon PCB rails in e3DHW_addon_boxes.scad) and any ADDON on the lid or TOP.
-  @param size_h box length, in half-modules (1 module = mm 18). 
+  @param size_h box length, in half-modules (1 module = mm 18).
   @param  width,top,lefless,rigthless  the DIN profile definition. see @htmlonly <a href='#dinbox'>DIN boxes rules</a> @endhtmlonly.
 
   @param uclip acceps different options: xauto, "XXX", ["XXX","YYY"]. See polyDINSeparator(). Default <tt> ["SPF","MSX"] </tt> to maximize interior space.\n
@@ -374,7 +374,7 @@ module boxDINSeparator(length, top = DINTOP, width= DINWIDTHM, leftless=0, rigth
 */
 module simpleDINBox(size_hm, top = DINTOP, width= DINWIDTHM, leftless=0, rigthless=0, uclip = xauto, lidHole = -7, lidThick = TOPTHICKNESS, lidFill = 100, towerHole = -58, bottomThick = TOPTHICKNESS, bottomFill = 100, boxThick = NOTOPTHICKNESS, lidStyle = LSIN, x=0, y=0, rot = norot){
     _length = get_H(size_hm);
-    _useCLIP =  get_Clip(uclip, _length, ["SPF","MSX"]); 
+    _useCLIP =  get_Clip(uclip, _length, ["SPF","MSX"]);
       // tower size tune based on towerHole style
    _towRad = get_towerRadius(towerHole, lidStyle);
    // towers borders distance
@@ -387,12 +387,12 @@ module simpleDINBox(size_hm, top = DINTOP, width= DINWIDTHM, leftless=0, rigthle
         translate([get_ClipTrnsX(_useCLIP, width),get_rail2top(_useCLIP)+EXTRA,0])do_DINClip(_useCLIP, _length, get_ClipWidth(_useCLIP, width));
 
       do_standalone_polyBox(_useArray, _length,lidAHoles =(lidHole == 0? undef:get_tower2holes(_towList, lidHole)), lidStyle = (lidStyle), lidThick = (lidThick), lidFill = (lidFill), bottomThick=(bottomThick), bottomFill = (bottomFill), sideThick = boxThick,towerAHoles = (towerHole == 0? undef: _towList),towerRadius= _towRad);
-   } 
+   }
  if (lidStyle != LSNONE)translate([x,y,0])rotate(rot){
   if (OPTION_BOXPRINT)
     do_standalone_polyLid(_useArray, _length,lidAHoles =(lidHole == 0? undef:get_tower2holes(_towList, lidHole)), lidStyle = (lidStyle), lidThick = (lidThick), lidFill = (lidFill), bottomThick=(bottomThick), bottomFill = (bottomFill), sideThick = boxThick,towerAHoles = (towerHole == 0? undef: _towList),towerRadius= _towRad);
   else
-     translate([-10,0,_length+0.1])rotate([0,180,0]) 
+     translate([-10,0,_length+0.1])rotate([0,180,0])
      do_standalone_polyLid(_useArray, _length,lidAHoles =(lidHole == 0? undef:get_tower2holes(_towList, lidHole)), lidStyle = (lidStyle), lidThick = (lidThick), lidFill = (lidFill), bottomThick=(bottomThick), bottomFill = (bottomFill), sideThick = boxThick,towerAHoles = (towerHole == 0? undef: _towList),towerRadius= _towRad);
    }
  }
@@ -400,7 +400,7 @@ module simpleDINBox(size_hm, top = DINTOP, width= DINWIDTHM, leftless=0, rigthle
 /**
 @fn bigDINBox(size_hm, base_width=50, top = DINPOT, uclip = xauto, boardThick = BOARDTHICKNESS, boardFill = DEFAULTFILL,  topFill = 100,  topThick = TOPTHICKNESS, boxThick = NOTOPTHICKNESS)
    This big board consist in four pieces assembled by screws.
-   2 DIN clips are tied to main board ("SCB","SPC","SCC"); also the box is tied with screws.\n 
+   2 DIN clips are tied to main board ("SCB","SPC","SCC"); also the box is tied with screws.\n
    Without top (DINPOT) the box is rectangular over the board, else the box is limited to the TOP zone.
  \image html bigDINbox.png
    @param size_hm box length, in half-modules, min 5 (2.5 modules = mm 44.5).
@@ -423,22 +423,22 @@ module bigDINBox(size_hm, base_width=50, top = DINPOT, uclip = xauto, boardThick
    _board_clipHole = -7;
    _board_boxHole =-57;
    _towerHole = -58;
-   // 
+   //
    _length = get_H(size_hm);
    _height = top -boardThick;
-   _useCLIP =  get_Clip(uclip, _length, ["SCB","SCB"]); 
-    assert(get_exd(_useCLIP)>0,"Clips must have fixing holes"); 
+   _useCLIP =  get_Clip(uclip, _length, ["SCB","SCB"]);
+    assert(get_exd(_useCLIP)>0,"Clips must have fixing holes");
     // accepts also not symmetrical clips("SCB")
    _useDHoleClip = get_ClipWidth(_useCLIP, base_width);
    _xoffset = get_ClipTrnsX(_useCLIP, base_width);
- // --------- 2 * clips 
+ // --------- 2 * clips
   if (OPTION_BOXPRINT){
    translate([(_length + 20)*2, 30,0])do_DINClip(_useCLIP, _clip_length,_useDHoleClip);
    translate([(_length + 20)*2, 60,0])do_DINClip(_useCLIP, _clip_length,_useDHoleClip);
   }
   else {
     translate([-_xoffset+base_width+(top == DINPOT?0:-(base_width -DIN_BOX_TOP_WIDTH)/2), _length/4 + _clip_length/2 ,_height+boardThick+1])rotate([-90, 0,180])do_DINClip(_useCLIP, _clip_length,_useDHoleClip);
-     
+
     translate([-_xoffset+base_width+(top == DINPOT?0:-(base_width -DIN_BOX_TOP_WIDTH)/2), 3*_length/4 + _clip_length/2 ,_height+boardThick+1])rotate([-90, 0,180])do_DINClip(_useCLIP, _clip_length,_useDHoleClip);
  }
  // -------- top
@@ -458,35 +458,35 @@ module bigDINBox(size_hm, base_width=50, top = DINPOT, uclip = xauto, boardThick
         get_squareArray3(base_width,_length,_dt,_dt,_towerHole ):
         get_squareArray3(DIN_BOX_TOP_WIDTH,_length,_dt,_dt,_towerHole );
     // standard box
-  
+
    difference(){
       do_standalone_polyBox(_toppoints, _height, undef, LSTOW, boardThick, boardFill, boxThick, topFill, boxThick, _boxtowers, _towRad, round_box= top != DINPOT?0: _slabcorner );
     if ( top != DINPOT){
         translate([-5,0,top+8])rotate([0,90,0]) linear_extrude(height = DIN_BOX_TOP_WIDTH+10, $fn=64) offset(r=_biground) offset(delta=-_biground) polygon(_topcarve);
       }
    }
-  
- //========= base 
+
+ //========= base
      // clips mountimg holes
-   _baseh1 = 
+   _baseh1 =
     [[get_exd(_useCLIP)/2,_length/4,_board_clipHole],[get_exd(_useCLIP)/2,3*_length/4,_board_clipHole],[get_exd(_useCLIP)/2+_useDHoleClip,3*_length/4,_board_clipHole],[get_exd(_useCLIP)/2+_useDHoleClip,_length/4,_board_clipHole]];
      // box mounting holes
    _baseh2 =( top == DINPOT)?
-        get_squareArray3(base_width,_length,_dt,_dt,_board_boxHole ): 
+        get_squareArray3(base_width,_length,_dt,_dt,_board_boxHole ):
         get_squareArray3(base_width,_length,(base_width-DIN_BOX_TOP_WIDTH)/2+_dt,_dt,_board_boxHole );
    _baseholes = concat(_baseh1,_baseh2);
-//   
+//
  if (OPTION_BOXPRINT)
        translate([_length + 20,0,0])
          polyBase(_boardpoints,_baseholes, fill= boardFill );
   else translate([ top == DINPOT?0:-(base_width -DIN_BOX_TOP_WIDTH)/2,0,_height+0.3])
          polyBase(_boardpoints,_baseholes, fill= boardFill );
- } 
- 
+ }
+
  // =====================================   PUBLIC FUNCTIONS
 
 /**
-@fn get_DINvertex(top , width, leftless, rigthless) 
+@fn get_DINvertex(top , width, leftless, rigthless)
 utility: makes a \b vertex array2 from DIN box parameters <tt>top , width, leftless, rigthless </tt>. See @htmlonly <a href='#dinbox'>DIN rules</a> @endhtmlonly.
 */
 // To keep the top centered on the rail uses negative coordinates ( \c leftless).
@@ -520,11 +520,11 @@ utility: makes the towers array3 from vertex array. Only if vertex is created by
 
 /**
 @fn get_tower2holes(v, diam)
-utility: builds the lid holes array3, from any towers array. 
+utility: builds the lid holes array3, from any towers array.
 */
-  function get_tower2holes(v, diam)=(is_undef(v)? undef:[ 
+  function get_tower2holes(v, diam)=(is_undef(v)? undef:[
      for(i= [0:len(v) -1])[v[i].x,v[i].y, (is_undef(v[i].z)? undef:(v[i].z == 0)? 0: diam)]]);
- 
+
 /**
 @fn get_towerRadius(towerHole, lidStyle = LSIN)
 utility: implements the strategy for box tower radius for special tower holes.
@@ -545,7 +545,7 @@ function get_towerDistance(towerHole, lidStyle = LSIN)=
    (towerHole > 0 ? towerHole/2+3.5:
       (lidStyle == LSIN? (towerHole <=- 2000? 6:6 ):
          (towerHole <=- 2000? 4.8:4.8 )));
-  
+
   /**
   @fn  do_verifyArrays(vertex, towers = undef)
   utility: development test for polygon array and towers positions. Use with only array definitions.
@@ -564,7 +564,7 @@ module do_verifyArrays(vertex, towers = undef){
       if(!is_undef(towers)) for(i=[0:len(towers)-1]){
             translate([towers[i].x,towers[i].y,0]){
                if(!is_undef(towers[i].z))circle(r= towers[i].z > 0? towers[i].z:_tower_min_radius);
-            } 
+            }
       }
    }
 }
@@ -573,5 +573,5 @@ module do_verifyArrays(vertex, towers = undef){
 @fn get_cut2_shape(arr2, cut)
 utility: cuts the bottom of an array2 shape, see @htmlonly <a href='#vertexbox'>polygonal rules</a> @endhtmlonly.
 */
-  function get_cut2_shape(arr2, cut)=([for(i=[0:len(arr2)-1])[arr2[i].x, arr2[i].y>cut?arr2[i].y:cut]]); 
- 
+  function get_cut2_shape(arr2, cut)=([for(i=[0:len(arr2)-1])[arr2[i].x, arr2[i].y>cut?arr2[i].y:cut]]);
+

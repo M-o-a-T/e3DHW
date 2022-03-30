@@ -28,7 +28,7 @@
      <i>thee are standalone things</i> ready to use, fixing a loan like PCBs with screws. The size \c d is the holes distance. \n
    @image html dinPCB.jpg
      <i>four are bulding blocks</i> with a flat top, to be used in larger projects. For that clips  \c d is the total clip size.\n
-  
+
     From the weakest to the strongest:
     \li \c dinRailSmallNoSpring(): \b NSS - min 1x45, very low profile, a block for custom designs.
     \li \c dinRailBasicScrew(): \b SCB - min: 9x30, asymmetrical, smallest generical support for PCB: fix it with thread-forming screws.
@@ -38,7 +38,7 @@
      \li \c dinRailFlatScrew(): \b SCF - min 9x50, flat surface for custom designs.
      \li \c dinRailExtraMSpring(): \b MSX - min 26x70, big with a very low profile, for boxes and custom designs. Requires a metallic spring.
  \image html DINclips.jpg
-     
+
 @note  The Screw clips are sturdier than Spring clips. But the Screw clips are less easy to fix when a cable duct is 5 cm from the rail. For that sometimes rails are popoled off the cabinet, or you can not tighten the screw after clicking. A god use of screw clips is as fixing terminals.
 
 @htmlonly <a name='clipuse' ></a> @endhtmlonly
@@ -52,7 +52,7 @@
     clip = get_Clip(use_clip, length, ["SPF","MSX"]);  // defauts: SPF (4<= length < 26) and MSX( length >= 26)
     translate([get_ClipTrnsX(clip, width), 0, 0]) do_DINClip(clip, length, get_ClipWidth(clip, width));
    // the clip top is the line (0,0) to (width, 0).
- ..<here more code>... 
+ ..<here more code>...
  }
  @endcode
 
@@ -64,11 +64,11 @@
 @note Of course the 7 clips are different, about clip force and minimal dimensions: every application will have the best clip. Beacuse the clips are full compatible, you can try more clips then chose without changing the desing ( see examples). \n For small separators it is best \c NSS (\c h min = 1), for strong terminal it is required a screw clip (\c h min = 9), while for DIN boxes it is better a very flat clip like \c MSX (\c h min 26). \n
    If i need a small box, I can't use \c MSX. The best alternative is to use a \c SPF clip from 4 mm to 26 mm, but with loss of vertical space (from 2 mm to 19.5 mm: I miss 17.5 mm in vertical).\n
    In this library, the function get_Clip() will implement this strategy: having as default a couple like ["SPF","MSX"] the function returns MSX if h >= 26, otherwise returns SPF. So the code for boxes will works from small boxes to bigger ones, giving whenever the best solution.
- 
+
 @par extra
   \li Screw-clips requires: a screw M3x12 (better hex socket head)+ nut + washer mm 3.2x9 (large)
   \li Basic-clips requires: 2 thread-forming screws to fix PCB.
-  \li Center-clips requires: 2 x M3x15 + nuts +nylon washers to fix PCB. 
+  \li Center-clips requires: 2 x M3x15 + nuts +nylon washers to fix PCB.
   \li XStrong-clip requires: a spring in steel wire
 
 @note For user convenice avery clip has a signature with model and size.
@@ -79,17 +79,17 @@
       \li \c e3DHW_hardware_data.scad
       \li \c e3DHW_array_lib.scad
       \li \c contrib\dinprofile.dxf
-      
+
   To use this library you must add the following lines to your code:
       \li  <tt> include <e3DHW_DIN_rail_lib.scad> </tt>
       \li  <tt> include <e3DHW_array_lib.scad> </tt>
       \li  <tt> include <e3DHW_hardware_data.scad> </tt> \n
       <i> but don't allow duplicate include.</i>
- 
-@see  Thanks to maker dseelbach80 for inspiration: 
-        https://www.thingiverse.com/thing:2162938 
+
+@see  Thanks to maker dseelbach80 for inspiration:
+        https://www.thingiverse.com/thing:2162938
 @see Thanks to maker cgapeart for dinprofile.dxf file:
-        https://www.thingiverse.com/thing:293558 
+        https://www.thingiverse.com/thing:293558
 
  @author    Marco Sillano
  @version 0.1.1    18/03/2018 base version
@@ -98,7 +98,7 @@
                     better use: parameters check and standization.
                     Doxygen comments
  @copyright GNU Lesser General Public License.
- 
+
  @example  e3DHW_DIN_rail_examples.scad
 */
 
@@ -136,19 +136,19 @@ OPTION_RAIL = 80;  ///< if OPTION_RAIL > 0, the DIN rail trace is added.
 */
 module do_DINClip(clip, h, d, x=0, y=0, rot = [0,0,0]){
  translate([x,y,0])rotate(rot)union(){
- if (clip == "SCB") dinRailBasicScrew(h,d); else 
+ if (clip == "SCB") dinRailBasicScrew(h,d); else
  if (clip == "SPC") dinRailCenterSpring(h,d); else
  if (clip == "SCC") dinRailCenterScrew(h,d); else
  if (clip == "SPF") dinRailFlatSpring(h,d); else
  if (clip == "SCF") dinRailFlatScrew(h,d); else
  if (clip == "NSS") dinRailSmallNoSpring(h,d); else
  if (clip == "MSX") dinRailExtraMSpring(h,d); else
-    assert(false, str("the DIN clip code '", clip, "' is not valid")); 
+    assert(false, str("the DIN clip code '", clip, "' is not valid"));
  if (OPTION_RAIL > 0) %translate([ d* get_xm(clip) + get_xq(clip) +get_exd(clip)/2 + DINSL/2, -get_rail2top(clip),0])rotate([0,0,180])linear_extrude(OPTION_RAIL)import("contrib/dinprofile.dxf");
   }
 }
- 
- 
+
+
 /**
  @fn get_ClipWidth(clip, width)
 utility: gets the parameted \c d to be used in get_Clip() to have the required \c width top.
@@ -173,16 +173,16 @@ function get_ClipTrnsX(clip, width) =  (get_xq(clip) == 0?0:width/2 - get_xq(cli
  @fn get_Clip(uclip, length, default)
  utility: implements the strategy for DIN clip selection.
  Any clip as a minimal length required, and a distance from DIN rail.\n
- This functions choses based on \c length, with preference to second clip. The goal is to maximize the vertical space. See @htmlonly <a html='#clipusenote' >note on clips use</a>. @endhtmlonly \n 
+ This functions choses based on \c length, with preference to second clip. The goal is to maximize the vertical space. See @htmlonly <a html='#clipusenote' >note on clips use</a>. @endhtmlonly \n
    For the clips in a couple MUST be true: <tt>get_min_h(clip[1])>=get_min_h(clip[0])</tt>, so \c clip[0] is used when it is not possible to use \c clip[1]\n
  @param uclip @parblock the required clip:\n
     1 - a single code like <tt>"SCB"</tt>: forces the clip used.\n
     2 - a couple of codes like <tt>["SCF","MSX"]</tt>.\n
-    3 - \c xauto: it uses the \c default couple. @endparblock 
+    3 - \c xauto: it uses the \c default couple. @endparblock
  @param length vertical size of required clip, used to choose the clip in a couple.
  @param default a couple like: <tt>["SPF","SCF"]</tt> or <tt>["NSS","NSS"]</tt>
 */
-function get_Clip(uclip, length, default) = (is_list(uclip)? (assert(get_min_h(uclip[1])>=get_min_h(uclip[0]), str("bad clips selection on parameter: check minimum h")) length < get_min_h(uclip[1])?uclip[0]:uclip[1]):is_string(uclip)? uclip:(length <get_min_h(default[1])?default[0]:default[1])); 
+function get_Clip(uclip, length, default) = (is_list(uclip)? (assert(get_min_h(uclip[1])>=get_min_h(uclip[0]), str("bad clips selection on parameter: check minimum h")) length < get_min_h(uclip[1])?uclip[0]:uclip[1]):is_string(uclip)? uclip:(length <get_min_h(default[1])?default[0]:default[1]));
 
 /**
 @fn get_H(hm)
@@ -197,13 +197,13 @@ function get_H(hm)= (hm*9)-0.5;
  code \b SCB: a stong asymmetrical clip, using screw M3 fixing design.
  The smallest screw DIN clip, only 36 mm top, only 13,5 mm rail to top. You can use it with a PCB, or other flat things, e.g. a box, tied with self-tapping screws./n
    Used as symmetrical and interchangeable clip, min width is 45 mm.
-   
+
  @param h = size (min 9 mm for washer size)
  @param d = PCB mount holes distance (min 30 mm)
  */
 module dinRailBasicScrew(h, d) {
-   assert ( d >= get_min_d("SCB"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCB"),".")); 
-   assert ( h >= get_min_h("SCB"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCB"),".")); 
+   assert ( d >= get_min_d("SCB"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCB"),"."));
+   assert ( h >= get_min_h("SCB"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCB"),"."));
    translate([d+get_exd("SCB")/2,0,0])rotate([0,0,-90])translate([2,-d+33.5,0])
    difference(){
       _din_screw(h, d,"B",d);
@@ -220,8 +220,8 @@ module dinRailBasicScrew(h, d) {
  @param d = PCB mount holes distance (min 48 mm)
  */
 module dinRailCenterSpring(h, d){
-   assert ( d >= get_min_d("SPC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPC"),".")); 
-   assert ( h >= get_min_h("SPC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPC"),".")); 
+   assert ( d >= get_min_d("SPC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPC"),"."));
+   assert ( h >= get_min_h("SPC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPC"),"."));
    _y = (d-40)/2;  // d+get_exd("SPC")
    translate([d+get_exd("SPC"),0,0])rotate([0,0,-90])translate([13,-d/2+20,0]) union(){
             _din_spring(h, 30, _y,"C",d);
@@ -236,10 +236,10 @@ module dinRailCenterSpring(h, d){
  @param d = PCB mount holes distance (min 50 mm)
  */
 module dinRailCenterScrew(h, d) {
-    assert ( d >= get_min_d("SCC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCC"),".")); 
-   assert ( h >= get_min_h("SCC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCC"),".")); 
+    assert ( d >= get_min_d("SCC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCC"),"."));
+   assert ( h >= get_min_h("SCC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCC"),"."));
    translate([d+get_exd("SCC"),0,0])rotate([0,0,-90])translate([13,-d/2+19.5,0])union(){
-          _din_screw(h, 30,"C",d); 
+          _din_screw(h, 30,"C",d);
           translate([0,-1,0])_top_center(h,d);
       }
 }
@@ -252,8 +252,8 @@ module dinRailCenterScrew(h, d) {
  @param d = TOP size (min 55 mm)
  */
 module dinRailFlatSpring(h, d){
-   assert ( d >= get_min_d("SPF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPF"),".")); 
-   assert ( h >= get_min_h("SPF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPF"),".")); 
+   assert ( d >= get_min_d("SPF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPF"),"."));
+   assert ( h >= get_min_h("SPF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPF"),"."));
    _y = (d-48)/2;
     translate([d+get_exd("SPF"),0,0])rotate([0,0,-90])translate([8,-(d-11-37)/2,0]) union(){
               _din_spring(h, 30, _y,"F",d);
@@ -268,12 +268,12 @@ module dinRailFlatSpring(h, d){
  @param d = TOP size (min 50 mm, no holes)
  */
 module dinRailFlatScrew(h, d) {
-   assert ( d >= get_min_d("SCF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCF"),".")); 
-   assert ( h >= get_min_h("SCF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCF"),".")); 
+   assert ( d >= get_min_d("SCF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCF"),"."));
+   assert ( h >= get_min_h("SCF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCF"),"."));
    translate([d+get_exd("SCF"),0,0])rotate([0,0,-90])translate([8,-(d-10-37)/2,0])union(){
               _din_screw(h, 30,"F",d);
               translate([0,-1,0])_top_center(h,d-8,0);
-             } 
+             }
 }
 
 /**
@@ -284,17 +284,17 @@ module dinRailFlatScrew(h, d) {
  @param d = long (min 45 mm, no holes)
  */
 module dinRailSmallNoSpring(h,d){
-   assert ( d >= get_min_d("NSS"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("NSS"),".")); 
-   assert ( h >= get_min_h("NSS"), str("parameter (h) too small (",h,") Required min. ",get_min_h("NSS"),".")); 
+   assert ( d >= get_min_d("NSS"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("NSS"),"."));
+   assert ( h >= get_min_h("NSS"), str("parameter (h) too small (",h,") Required min. ",get_min_h("NSS"),"."));
   _l1 = (d-45)/2; // left space
   _l2 = _l1+40.5;   // start rigth hook, , 40.5: default, 40.0: stronger grip
-  _h1= 5;  // hook 
+  _h1= 5;  // hook
   _l3 = (_l1 > 3)? 3:_l1;
  _DinSmall = [[0,0],[0,2],[_l1-_l3,2],
     [_l1+3.5-_l3,_h1],[_l1+3.5+3.3,_h1],[_l1++3.5+3.4,_h1-0.5],[_l1+3,2],
     [_l2,2],[_l2,2+1],[_l2-0.8,2+1+0.8],[_l2-0.8,2+1+1.4],[_l2-0.8+0.5,_h1],[_l2+3+_l3,_h1],[_l2+4.5+_l3,2],
     [d,2],[d,0]];
-  translate([d+get_exd("NSS"),0,0])rotate([0,0,180])linear_extrude(h)polygon(_DinSmall); 
+  translate([d+get_exd("NSS"),0,0])rotate([0,0,180])linear_extrude(h)polygon(_DinSmall);
 }
 
 /**
@@ -308,8 +308,8 @@ module dinRailSmallNoSpring(h,d){
   \image html spring.jpg
  */
 module dinRailExtraMSpring(h,d){
-   assert ( d >= get_min_d("MSX"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("MSX"),".")); 
-   assert ( h >= get_min_h("MSX"), str("parameter (h) too small (",h,") Required min. ",get_min_h("MSX"),".")); 
+   assert ( d >= get_min_d("MSX"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("MSX"),"."));
+   assert ( h >= get_min_h("MSX"), str("parameter (h) too small (",h,") Required min. ",get_min_h("MSX"),"."));
    _splarge= 22;  // metal spring, z limit: splarge + 4 (26 mm)
    _splong=18;    // metal spring: + mm 2-4 (22x20 - 22x22)
    //
@@ -317,7 +317,7 @@ module dinRailExtraMSpring(h,d){
    _l1 = _ycenter - 17.5-6; // start fix block
    _l2 = _l1+44;            // start spring block
    _l3 = _l2+14.5;          // end spring block
-   
+
    _DinStong = [[0,0],[0,3],[_l1,3], [_l1+3.5,6],[_l1+3.5+4.3,6],[_l1+3.5+4.3,5.5],[_l1+3.5+4.5,5.2],[_l1+5,2],[_l2,2],[_l2,6],[_l3-2,6],[_l3,3],[d,3],[d,0]];
     translate([d+get_exd("MSX"),0,0])rotate([0,0,180])difference(){
        linear_extrude(h) polygon(_DinStong);
@@ -332,9 +332,9 @@ module dinRailExtraMSpring(h,d){
 
 // writes the signature
 module _do_signc(tx){
-   translate([0,-18,-0.05])rotate([0,0,90])    
+   translate([0,-18,-0.05])rotate([0,0,90])
    resize(newsize=[32,4.5,_text_add_relief+0.05])   linear_extrude(height=2) text(, font = _TEXTFONT, text= str(tx), halign ="center");
-} 
+}
 
 // nut receptacle
 module _din_screw(h,d,t,y) {
@@ -351,8 +351,8 @@ difference(){
       translate([0,-0.5,h-_text_add_relief]) rotate([180,0,0]) linear_extrude(height=h-_text_add_relief) polygon(_DinRailMountScrew);
       translate([9.9,0,h-_text_add_relief-0.1])_do_signc(str("SC",t,h,"x",y));
     }
-    translate([7,-10,h/2]) rotate([90,0,0])polyhole(36,_M3_dia);  // 3MA 
-    translate([7,-39,h/2]) rotate([90,0,-5])polyhole(16,_M3_dia);  
+    translate([7,-10,h/2]) rotate([90,0,0])polyhole(36,_M3_dia);  // 3MA
+    translate([7,-39,h/2]) rotate([90,0,-5])polyhole(16,_M3_dia);
     translate([7+3,-37.5,h/2-3.4]) rotate([0,0,90])cube(size=[_M3_nut_h+0.8, _M3_headd+0.4,h+2]);
     }
 }
@@ -360,11 +360,11 @@ difference(){
 // spring definition
 module _din_spring(h, d, dist,t,y){
 _DinRailMountSpring = [
-[0,-(d-30)],[0,6-(d-30)], [5,9-(d-30)],[5,27],[0,30],[0,36],[0.1,36],[0.1,41.5],     
+[0,-(d-30)],[0,6-(d-30)], [5,9-(d-30)],[5,27],[0,30],[0,36],[0.1,36],[0.1,41.5],
 // alternative: the action hook
 [12,41.5],[13,42],[13,dist+43+4], [10,dist+43+4], [10,dist+45+4], [15.5,dist+46+4],
 // alternative: no action hook
- // [10,41.5],[13,42],[15.5,42],   
+ // [10,41.5],[13,42],[15.5,42],
 [15.25,39], [13.5,38], [13,38], [12.75,40],
 [2,40], [2,39.75], [2,36.75],[2.25,36.25], [11.5,39.25],
 [11.5,35], [10,34], [10,9], [11.5,8], [11.5,4.75],
@@ -387,13 +387,13 @@ module _top_center(h, d, z=5, nose = 0){
 difference(){
    union(){
       linear_extrude(height=h){ polygon(_DinRailTop); };
-      if (nose >0) linear_extrude(height = h-1)offset(r=2) offset(delta=-2) polygon(_Safe);    
+      if (nose >0) linear_extrude(height = h-1)offset(r=2) offset(delta=-2) polygon(_Safe);
    }
       if (z>0) {
           translate([-14,_L/2-4-36/2-4.5,h/2]) rotate([90,0,90])polyhole(14,_M3_dia);
           translate([-5.5,_L/2-4-36/2-4.5,h/2]) rotate([90,0,90])cylinder(h=15,r=(_M3_nut_Wc+0.2)/2,$fn=6);
           }
-          
+
       if (z>0) {
          if (nose==2 && d< 60){
            translate([-14,4-_L/2-36/2-4.5,h/2]) rotate([90,0,90])polyhole(20,_M3_dia);
@@ -405,7 +405,7 @@ difference(){
        }
     }
  }
- 
+
 
 //! @publicsection
  // DIN  rail std

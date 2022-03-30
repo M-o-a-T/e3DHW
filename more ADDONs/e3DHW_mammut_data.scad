@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -18,15 +18,15 @@
  @file e3DHW_mammut_data.scad
  Collection of commercial mammut data, used by e3DHW_addon_terminal.scad.
  \image html mammutstrip.jpg
- \li \b Mammut  connectors uses the metallic core of industrial cheap mammut strips. 
+ \li \b Mammut  connectors uses the metallic core of industrial cheap mammut strips.
 @note You must update the MAMMUT array with the sizes of naked mammut you use.
 
  \image html mammut.jpg
- 
+
 @note \b IMPORTANT keep the array ordered by cable size ( \c MAMMUT[0], ascendent)
 */
 // Naked MAMMUT
-// Array of measures of mammut metallic cores (see photo). 
+// Array of measures of mammut metallic cores (see photo).
 // To be update: it must fit available mammuts.
 // IMPORTANT! keep the array ordered by cable size (MAMMUT[0], ascendent)
 MAMMUT = [[ 4,  3.1,   6,   11,   14,   4,   10,   7,  "BM 9201"],  // [0]
@@ -39,7 +39,7 @@ MAMMUT = [[ 4,  3.1,   6,   11,   14,   4,   10,   7,  "BM 9201"],  // [0]
 //       4=  l-barrel length (mm)
 //       5=  d-screws (head - mm) round it to bit size
 //       6=  screws distance (axes, mm)
-//       7=  step, mammut distance (at least [2]+1 mm) 
+//       7=  step, mammut distance (at least [2]+1 mm)
 //       8=  model reference
 //
 // note: if len(MAMMUT) > 5 you must update the function _get_MIdx() in e3DHW_addon_terminal.scad !!

@@ -9,16 +9,16 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
  @file e3DHW_pcb_board_data.scad
- 
+
  Collection of data of commercial PCB geometries,used by e3DHW_addon_base.scad
- 
+
  You can contribute sending me new data: I will add it in next release.
 
  @author  Marco Sillano
@@ -52,7 +52,7 @@ arduinoYunHoles  = [[14,2.5,3],[15.3,50.7,3],[66.4,7.5,3],[66.4,35,3]];  ///< ma
 // see also:  https://www.itead.cc/wiki/Sonoff
 // pcb: 2017-5-5, Sonoff TH_V1.1 (1744)
 // contribution by m.s. (14/03/2018, marco.sillano<at>gmail.com)
-sonoffBasicVertex =[[0,0],[65,0],[65,34.1],[0,34.1]];       
+sonoffBasicVertex =[[0,0],[65,0],[65,34.1],[0,34.1]];
 sonoffBasicHoles =undef;   ///< none
 
 //! Sonoff TH10

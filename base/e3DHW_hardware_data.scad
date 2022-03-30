@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -20,7 +20,7 @@
  These data are function of the commercial hardware found, but also of the printer tolerances.
  Keeping this data here, it is possible to optimize them on the 3D printer and on the filament.\n
  All e3DHW libraries will share this optimized values.
- 
+
 @par Hardware
     \li M3 screws are the most used
     \li Parker self tapping screws requires a pilot hole
@@ -47,7 +47,7 @@ _M3_headh   = 3;      // M3 measured head height, nominal 3
 
  //-------- Parker (self-tapping screws)
  // see http://staticassets-hrd.appspot.com/hct614a8s/file.pdf%3Ffilename%3Dtrue
-_park_dia   = 1.2;    // Parker (self-tapping): 1.2x5 pilot hole. 
+_park_dia   = 1.2;    // Parker (self-tapping): 1.2x5 pilot hole.
 _park_len   = 5;      // Parker (self-tapping): 1.2x5 pilot hole
 _park_hole  = 3;      // Parker (self-tapping) 2.9x6: hole
 

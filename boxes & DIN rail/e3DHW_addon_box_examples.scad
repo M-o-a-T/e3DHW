@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -31,7 +31,7 @@ difference() {
       translate([50,10,0])add_PcbGuide(70);
       }
    // low-level: using here carve_text() from addon_base, because don't exist a 'border' version:
-   translate([50, 90, 10])carve_text("carved border", size=7, rot=[90,0,-90]); 
+   translate([50, 90, 10])carve_text("carved border", size=7, rot=[90,0,-90]);
    carve_holeBorder(12, h=70, x=50, y = 30);
    carve_elongatedHoleBorder(2, 8, h=70, x=50, y = 50);
    carve_roundPolyBorder(star, h=70, x=50, y = 60);
@@ -44,7 +44,7 @@ difference() {
 module din_DSP4(){
  include <e3DHW_addon_terminal.scad> //required for this project
 // local re-definitions for this project
-  _TEXTFONT   ="DejaVu Sans Mono: style=Bold";  // test 
+  _TEXTFONT   ="DejaVu Sans Mono: style=Bold";  // test
   DEFAULTFILL = 60;
 // constats
 _hm=3; // 3 half modules = 26.5 mm

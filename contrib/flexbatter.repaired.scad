@@ -6,7 +6,7 @@
 ///  The number of batteries and their size is fully parametrized.
 ///
 ///  The usual metallic spring at the minus pole is replaced by a
-///  flexible printed spring, which is pressing the contacts firmly to 
+///  flexible printed spring, which is pressing the contacts firmly to
 ///  the battery.
 ///
 ///  The contacts for the plus and minus pole can easily be made by
@@ -15,10 +15,10 @@
 ///  as well ad to the neighboring compartments, through which connecting
 ///  wires can be passed for easy configuring of parallel, serial or
 ///  balanced-serial battery packs.
-///  
+///
 ///  The preconfigured battery sizes are:
 ///  AA, AAA, C, D, 18650(Li-Ion), 18650P(protected Li-Ion), CR123A(16340)
-///  
+///
 ///  Given that the printed plastic spring needs to be flexible, ABS is the material
 ///  of choice here.
 ///
@@ -62,7 +62,7 @@ module arc(r1,r2,h,a1=0,a2=0){
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// sline - generate a "snake line" of width w and height h 
+// sline - generate a "snake line" of width w and height h
 // with a arbitrary sequence of segments defined by a radius and a turning angle
 //
 //   angle[i] > 0  left turn / counter-clockwise
@@ -94,14 +94,14 @@ module sline(angle,radius,i,w,h){
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-//  FLEXBATTER:  Flexing battery holder with integrated plastic spring 
+//  FLEXBATTER:  Flexing battery holder with integrated plastic spring
 //
 //////////////////////////////////////////////////////////////////////////////////
 module flexbatter(n=1,l=65,d=18,hf=0.75,r=4,shd=3,eps=0.28,el=0,xchan=[1/4,3/4],$fn=24){
 ew=0.56;   // extrusion width
 eh=0.25;   // extrusion height
 w = 4*ew;  // case wall thickness
-ws = 2*ew; // spring wall thickness 
+ws = 2*ew; // spring wall thickness
 ch = w-ws; // edge chamfering
 deepen=0; //deepening for side grip of batteries
 //el = 0;  // extra length in spring
@@ -132,7 +132,7 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
               }
                */
             } // ends difference
-           
+
             // plastic spring for minus pole
             for(sy=[-1,1])scale([1,sy,1]) {
                D=d+2*w-2*ws-0.7;
@@ -142,19 +142,19 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
 		  sline([0,180,0,180,0,-180,0,90,0],[r+ch+el+1.21,D/4,el,D/12,el/2,D/12,1+el/2,D/5,D/3],0,ws,hf*d+w);
             }
          }  // ends union
-    
+
          // lower and upper holes for contacts
          for(z=[-2*ws,2*ws]){
     //       translate([-2*ws,-w     ,w-ws/2+d/2+z     ])cube([l+2*w+2,2*w,ws]);  // old
              translate([-2*ws,-w+ws/2,w     +d/2+z+0.05])rotate([0,90,0]) linear_extrude(l+2*w+2)offset(r=ws/2)polygon([[0,0],[0,3*ws],[0.1,3*ws],[0.1,0]]);  // elongated holes, better print
          }
-      
+
          // longitudinal bottom wire channel
          translate([-2*ws,0,0])rotate([0,90,0])cylinder(r=w/2,h=l+w+2+r,$fn=5);
-      
+
          // traversal bottom wire channels
          for(x=l*xchan)translate([x,-d/2-w-1,eh]) rotate([-90,0,0])cylinder(r=w/2,h=d+2*w+ws+2,$fn=6);
- 
+
       // grip deepening
 	 if(deepen>0)
             translate([w+l/2-0.5,-d/2-w-0.01,w+d+l])
@@ -163,7 +163,7 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
 	          if(i==0)cylinder(r1=l+deepen*d+ch,r2=l+deepen*d,h=ch+0.02,$fn=72);
 	          if(i==n-1)translate([0,0,d+2*w-ch])cylinder(r2=l+deepen*d+ch,r1=l+deepen*d,h=ch+0.02,$fn=72);
                }
- 
+
          // conical screw holes in corners   - old
  //        for(x=[7+shd,l-2*shd])for(y=[-d/2+shd+0.3,d/2-shd-0.3])
  //            translate([x,y,-1]){
@@ -183,8 +183,8 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
          // holes for wires passing inside
      for(sy=[-1,1])scale([1,sy,1]){
 	    translate([l-1,-d/2,w])cube([w+2,2,2]);
-            for(x=[3,l-7])translate([x,-d/2-w-ws-1,w])cube([3,w+ws+3,2]); 
-            translate([3,-d/2+w/2-0.75,-1])cube([3,1.5,w+2]); 
+            for(x=[3,l-7])translate([x,-d/2-w-ws-1,w])cube([3,w+ws+3,2]);
+            translate([3,-d/2+w/2-0.75,-1])cube([3,1.5,w+2]);
             translate([-0.5,-d/2+w/2,0])rotate([0,90,0])cylinder(r=w/2,h=6.5,$fn=5);
          }
 
@@ -220,8 +220,8 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
 
    }  // ends for
    // small cylindrical carving of walls and bottom:  now here, size adjust
-      if(eps>0)    // 
-           for(i=[0:n-1])translate([0,i*(d+w+ws-0.2),0]){ // generate n battery 
+      if(eps>0)    //
+           for(i=[0:n-1])translate([0,i*(d+w+ws-0.2),0]){ // generate n battery
              translate([1,0,d/2+w])rotate([0,90,0])cylinder(r=d/2+eps,h=l-2.5,$fn=64);
            }
         }
@@ -229,31 +229,31 @@ translate([2*r,+d/2+w,0])difference(){     //     new: [0,0]: top left angle
 
 module flexbatter18650(n=1){
    flexbatter(n=n,l=65.5,d=18.4,hf=0.75,shd=3,eps=0.28);
-}  
+}
 
 module flexbatter18650P(n=1){
    flexbatter(n=n,l=67.5,d=18.4,hf=0.75,shd=3,eps=0.28);
-}  
+}
 
 module flexbatterCR123A(n=1){
    flexbatter(n=n,l=35.1,d=16.7,hf=0.75,shd=3,xchan=[0.5],eps=0.28);
-}  
+}
 
 module flexbatterD(n=1){
    flexbatter(n=n,l=61.5,d=34.0,hf=0.75,shd=3,eps=0.28);
-}  
+}
 
 module flexbatterC(n=1){
    flexbatter(n=n,l=51.6,d=26.4,hf=0.75,shd=3,eps=0.28);
-}  
+}
 
 module flexbatterAA(n=1){
    flexbatter(n=n,l=51.6,d=14.4,hf=0.80,shd=2.5,el=0.5,eps=0.28);
-}  
+}
 
 module flexbatterAAA(n=1){
    flexbatter(n=n,l=46.1,d=10.45,hf=0.84,shd=2,el=1,xchan=[0.5],eps=0);
-}  
+}
 
 module flexbatter18650x1(){ // AUTO_MAKE_STL
   flexbatter18650(n=1);

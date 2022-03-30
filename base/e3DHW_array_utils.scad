@@ -23,7 +23,7 @@ Grouping general purpose array utilities.
 Condition: the field[0] of each record is a string and is the primary key. \n
 Usually the array is private and RO: it works like an associative array, with public getter functions. \n
 This structure was used for the first time in e3DHW_DIN_rail_lib.scad. Found it useful, the
-basic functions are collected here, so DataBases can be used by more libraries: is_in(), get_position(), 
+basic functions are collected here, so DataBases can be used by more libraries: is_in(), get_position(),
 get_Key0(), valueGetter().
 
 @par dependences
@@ -59,7 +59,7 @@ function col2array(table, col)=([for(i=[0:len(table)-1]) table[i][col] ]);  ///<
   @param n  minimum number of elements in array (polygons: at least 3 points).
   @returns true if array is as required, else message and abort.
   */
-  function is_arrayOK(v, s =1, n=1) = ( 
+  function is_arrayOK(v, s =1, n=1) = (
       is_undef(v) ? assert(false, "this parameter is mandatory"):
         (!is_list(v))?  assert(false, "this parameter is not an array"):
           (!(len(v) >= n)) ?  assert(false, str("this array must have at least ", n ," elements")):
@@ -126,11 +126,11 @@ function get_minY(table) = min(col2array(table, 1)); ///< utility: returns min Y
 function is_in(key0,table) = (is_num(search(key0,table)[0])); ///< utility: test the presence of \c key0 element on col[0]: returns \c true/false
 
 // generic access functions, 'key0' is string, used as index.
-function get_position(key0, table) = (assert(is_in([key0],table), "key code not valid") search([key0],table)[0]);               ///< given the key0 returns a row number (0..len()-1), inverse of get_Key0(). 
+function get_position(key0, table) = (assert(is_in([key0],table), "key code not valid") search([key0],table)[0]);               ///< given the key0 returns a row number (0..len()-1), inverse of get_Key0().
 
 function get_Key0(i, table) = table[i][0];    ///< given row number, returns the key0[i], inverse of get_position().
 
-function valueGetter(key0, col, table) =(table[get_position(key0,table)][col]);  ///< lookup function: given the key0 returns the value in col 
+function valueGetter(key0, col, table) =(table[get_position(key0,table)][col]);  ///< lookup function: given the key0 returns the value in col
 
 
 

@@ -20,15 +20,15 @@
   \li dinBasicTerminalBlock() serie. It uses simple double mammuts, size variabile, wire variable, as defined in e3DHW_addon_terminal.scad. \n
   \image html dinterminalbasic.jpg
    The family is completed by end plates, dinBasicEndPlate() and strong end brackets with screw, dinBasicEndBrackets().
-  
-   \li dinTowerTerminalBlock() serie. It offerts 2, 4 or 6 connections, in couples or wired togheter. 
+
+   \li dinTowerTerminalBlock() serie. It offerts 2, 4 or 6 connections, in couples or wired togheter.
    \image html dinterminaltower.jpg
    Very flat (less than half module) and easy to print, it is a real space saver.\n
    The family is completed by parametric end plates dinTowerEndPlate() and end brackets with screw dinTowerEndBrackets().
-   
+
     \li dinQuickConnector() is a support for compact splicing connector with operating levers.
    (WAGO 222-415 PCT-215 PCT215).
-   
+
     \li dinStrainRelief() to fix cables (diameter 3-22 mm) to DIN rail. Requires nylon tie straps.
    \image  html moremodules.jpg
 @note: Terminal are designed to require as parameter only the cable section. The correct mammut core is chose from e3DHW_mammut_data.scad.
@@ -42,7 +42,7 @@
       \li \c e3DHW_DIN_boxes_lib.scad
       \li \c e3DHW_addon_terminal.scad
      \li \c e3DHW_mammut_data.scad
-      
+
   To use this collection you must add the following lines to your code:
       \li <tt> include <e3DHW_base_lib.scad> </tt>
       \li <tt> include <e3DHW_hardware_data.scad> </tt>
@@ -56,11 +56,11 @@
  @author    Marco Sillano
  @version 0.1.1    18/03/2018 base version
  @version 0.1.2   29/07/2019 bugs corrections,
-                    better use: parameters check and standization, 
+                    better use: parameters check and standization,
                     Doxygen comments
  @copyright GNU Lesser General Public License.
  @example e3DHW_DIN_modules_A_examples.scad
-*/ 
+*/
 
 //! @privatesection
 // for Basic Terminals serie
@@ -74,7 +74,7 @@ function _getPolyTower(p, mmq)=(let(idx=_get_MIdx(mmq))[[0,0],[p.y,0],[p.y,1],[p
 
 // returns in a vector with all parameters for Tower profile (_getPolyTower)
 //  uses some getter protected functions in e3DHW_addon_terminal.scad
-function _gethbd0dhVect(n, mmq)=(let(idx=_get_MIdx(mmq))[ 
+function _gethbd0dhVect(n, mmq)=(let(idx=_get_MIdx(mmq))[
  max(((_getMyTot(idx)+0.8)*n+6),(get_rail2top(_clip_TwBrackets)+6)), // hb: profile height, on x axis
  max(46,_getMxT(idx)*n+16),  // d0: profile bottom large, y axis
  _getMxT(idx)+4 ]);          // dh: profile top large, y axis
@@ -99,7 +99,7 @@ module dinBasicTerminalBlock(n, mmq=2){
       translate([(d -lD)/2,0,0]) add_simpleMammut (n, mmq, h, type = DT);
    }
 }
-  
+
  /**
 @fn dinBasicEndPlate(s=2)
 Slim end plate for basic blocks.
@@ -120,7 +120,7 @@ It can be used also as logical/functional separator car it accepts a Dymo 9 labe
 @param s thickness, s >= 10
 */
 module dinBasicEndBrackets(s=10){
-   clip = "SCF";  // the best for basic Brackets, you can change it  
+   clip = "SCF";  // the best for basic Brackets, you can change it
    h = max(get_min_h(clip), s, 10);
    d = max(get_min_d(clip)+get_xq(clip)+get_exd(clip),55);
    difference(){
@@ -132,7 +132,7 @@ module dinBasicEndBrackets(s=10){
 /**
 @fn dinTowerTerminalBlock(n, mmq=1)
 Space and filament saving DIN terminal, structured as an Hanoi tower.
-This block is with a side open: it will be closed by next terminal or by an EndPlate.\n 
+This block is with a side open: it will be closed by next terminal or by an EndPlate.\n
 Changing internal connections, the bigger terminal (n = 3) can be used as 1x6, or 1x2+1x4, or 3x2. \n
 Full parametric, selects the correct mammut as defined in e3DHW_mammut_data.scad\n
 All elements of the \c Tower \c Serie : dinTowerTerminalBlock(), dinTowerEndPlate(), dinTowerEndBrackets() have same parametric shape.
@@ -183,7 +183,7 @@ module dinTowerEndPlate(n, mmq=1, s=2){
   translate([0,params.y/2,0])rotate([0,0,-90])
          polyDINSeparator(vertex = _getPolyTower(params, mmq), length = HT, uclip = clip, fill = 100);
  }
- 
+
  /**
 @fn dinTowerEndBrackets(n, mmq=1, s = 10)
 Strong end bracket with screw for tower blocks.
@@ -212,7 +212,7 @@ module dinTowerEndBrackets(n, mmq=1, s = 10){
   Support for quickConnectors (wago compact connectors).
   Very simple, requires 2 self-tapping screws.
   */
-  module dinQuickConnector(){ 
+  module dinQuickConnector(){
    union(){
       translate([0,-10,0])dinRailBasicScrew(17, 40);
       translate([13,-1,0])cube([3, 4.1,50]);
@@ -237,13 +237,13 @@ module dinStrainRelief(dia){
   assert(dia >= 3 && dia <= 22, "cable size out of bounds [3..22]");
   hd = dia+ 3;
   difference(){
-     dinRailFlatSpring(hd, 80);  
+     dinRailFlatSpring(hd, 80);
      translate([-EXTRA,dia/2 - ((dia > 9)? dia/4:dia/3),hd/2])
        rotate([-90,0,-90])cylinder(d = dia, h = 80+1, $fn = 16);
    translate([8, -2,hd/2])toro(hd);
    translate([72,-2,hd/2])toro(hd);
    translate([40,-2,hd/2])toro(hd);
-  }    
+  }
 }
 
 //! @privatesection
@@ -273,8 +273,8 @@ module _towerBlock(n, mmq){
                translate([dz0+dx+dx,0,0]) add_cubeMammut (mhz, 1, mmq, type = FT, y= -xoff, rot =[0,0,-90]);
     }
  }
- 
- module _allProfile(){ 
+
+ module _allProfile(){
     wpoly =[[0,21],[0,8],[4,0],[15,0],[15,5],[14,15],[11,21]];
     difference(){
        offset(r = 1, $fn=32)  polygon(wpoly);
@@ -282,7 +282,7 @@ module _towerBlock(n, mmq){
        translate([-2,20.9,0])  square([20,1.1]);
     }
  }
- 
+
  module _halfProfile(){
    difference(){
        _allProfile();
@@ -290,7 +290,7 @@ module _towerBlock(n, mmq){
     }
 }
 
-module _quickProfile(){ 
+module _quickProfile(){
    union(){
       _allProfile();
       translate([-0.8,-0.7,0])resize([17.88,22.6,50])_halfProfile();

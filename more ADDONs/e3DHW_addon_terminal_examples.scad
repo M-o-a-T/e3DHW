@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -17,7 +17,7 @@
 
 include <e3DHW_base_lib.scad>;
 include <e3DHW_addon_base.scad>
-include <e3DHW_hardware_data.scad> 
+include <e3DHW_hardware_data.scad>
 include <e3DHW_addon_terminal.scad>
 
 // -------  terminalM3Block test
@@ -44,13 +44,13 @@ for (usetype = [HT, FT, DT])
          }
     // to show the mammut position we add carve_cubeMammut(FT)
      for(i=[1:3]){
-         #carve_simpleMammut( n=i, mmq=2, len=1, type = FT, x= usetype*50, y=(i-1)*30, rot =[90,0,10]);  
+         #carve_simpleMammut( n=i, mmq=2, len=1, type = FT, x= usetype*50, y=(i-1)*30, rot =[90,0,10]);
          #carve_simpleMammut( n=i, mmq=5, len=1, type = FT, x= usetype*50, y=90+ (i-1)*40, rot =[90,0,10]);
          }
       }
    }
 
-//------------- cubeMammut test 
+//------------- cubeMammut test
 module test_cubeMammut(){
 for (usetype = [HT, FT ])
    union() {

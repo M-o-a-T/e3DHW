@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -50,16 +50,16 @@ module custom_box(){
            [90+dt/2,75-dt,towerHole],
   //         [30-dt,40-dt,undef],             // no tower
            [0+dt,40-dt,towerHole]];
- 
+
 // do_verifyArrays(boxvertex, boxtowers );
 
-// In standard cases, it is easy to get the hole array for the lid from the tower array: 
-lidHoles =get_tower2holes(boxtowers, boxLidHole); 
+// In standard cases, it is easy to get the hole array for the lid from the tower array:
+lidHoles =get_tower2holes(boxtowers, boxLidHole);
 // now ready to do the box: because the panel is a lateral box side, the default thicknesses are changed.
 do_standalone_polyBox(boxvertex, height = boxHeight, lidAHoles = lidHoles, lidStyle = LSIN, lidThick = NOTOPTHICKNESS, lidFill = 80, bottomThick=NOTOPTHICKNESS, bottomFill = 80, sideThick = TOPTHICKNESS, towerAHoles = boxtowers, towerRadius=towRadius, round_box=_slabcorner);
   if (OPTION_BOXPRINT)   // close and print style
    do_standalone_polyLid(boxvertex, height = boxHeight, lidAHoles = lidHoles, lidStyle = LSIN, lidThick = NOTOPTHICKNESS, lidFill = 80, bottomThick=NOTOPTHICKNESS, bottomFill = 80, sideThick = TOPTHICKNESS, towerAHoles = boxtowers, towerRadius=3.2, round_box=_slabcorner);
-  else 
+  else
     translate([-10,0,boxHeight+0.1])rotate([0,180,0])
        do_standalone_polyLid(boxvertex, height = boxHeight, lidAHoles = lidHoles, lidStyle = LSIN, lidThick = NOTOPTHICKNESS, lidFill = 80, bottomThick=NOTOPTHICKNESS, bottomFill = 80, sideThick = TOPTHICKNESS, towerAHoles = boxtowers, towerRadius=3.2, round_box=_slabcorner);
 }
@@ -70,7 +70,7 @@ module my_separator (clip, length, large, height, w, x=0, y=0, rot = norot) {
 // parameters test
    assert(w >= 0 && w <=100, "out range: w is percent: (0..100)");
    _useCLIP =  get_Clip(clip, length, ["NSS","SPF"]);  // so length min 1 (as separator)
-   assert ((height >= get_rail2top(_useCLIP)) && (height>=lateral),str(" parameter height too small, min ",max([get_rail2top(_useCLIP),lateral])) );  
+   assert ((height >= get_rail2top(_useCLIP)) && (height>=lateral),str(" parameter height too small, min ",max([get_rail2top(_useCLIP),lateral])) );
    if (height > DINPOT) echo(str(" WARNING: height (",height,")too big for standard DIN containers, max (",DINPOT,")"));
 // building my shape, from parameters: height, w, lateral, large:
 myVertex =[[0,0],[large,0],[large,lateral], [large*(0.5+w*0.005),height], [large*(0.5-w*0.005),height], [0,lateral]];

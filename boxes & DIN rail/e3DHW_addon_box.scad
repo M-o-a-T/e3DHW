@@ -9,16 +9,16 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /*
 The e3DHW project is a set of libraries and things in OpenSCAD to make actual DIY electronics hardware in a simple and modular way (see e3DHW_HOWTO.pdf).
- 
+
  This ADDON library contains useful complements that you can add to a box, like boxes from e3DHW_DIN_boxes_lib.scad
- 
+
 MAIN MODULES
 ADDON: union() with box.
   add_PcbGuide: for pcb. note: print it only vertically.
@@ -29,7 +29,7 @@ CARVE: difference() with box.
 
 - carve_elongatedHoleBorder: carves an oval hole centered on vertical border. For connectors, flat cables, aeration.
 
-- carve_roundPolyBorder: carves any polygonal shape with optional rounded corners on vertical top/border. 
+- carve_roundPolyBorder: carves any polygonal shape with optional rounded corners on vertical top/border.
 
 - carve_colanderBorder: carves a centered area with sataggered holes, on vertical top/border. For aeration.
 
@@ -37,15 +37,15 @@ CARVE: difference() with box.
 use <MCAD/polyholes.scad>
 /**
 @file e3DHW_addon_box.scad
- Contains general pourpose modules that you can add to a box. 
+ Contains general pourpose modules that you can add to a box.
  This is the vertical version of e3DHW_addon_base.scad, for box sides.
- It is not difficult to transform an horizontal ADDOH into a vertical one. For your convenience 
+ It is not difficult to transform an horizontal ADDOH into a vertical one. For your convenience
  here some common ADDONS useful for vertical panels.
 @par dependences
     This library requires
       \li \c e3DHW_base_lib.scad
       \li \c e3DHW_addon_base.scad
-       
+
  To use this library you must add the following lines to your code:
       \li  <tt> include <e3DHW_base_lib.scad> </tt>
       \li  <tt> include <e3DHW_addon_base.scad> </tt>
@@ -54,8 +54,8 @@ use <MCAD/polyholes.scad>
 
  @author    Marco Sillano
  @version 0.1.1    18/03/2018 base version
- @version 0.1.2   29/07/2019 Bugs correction. 
-                   Better use: parameters check and standization. 
+ @version 0.1.2   29/07/2019 Bugs correction.
+                   Better use: parameters check and standization.
                    Doxygen comments.
  @copyright GNU Lesser General Public License.
  @example  e3DHW_addon_box_examples.scad
@@ -66,7 +66,7 @@ _pcb_space = 1.2 ;
 ///! @publicsection
 /**
 @fn add_PcbGuide(height, s=_pcb_space, x=0, y=0, rot=[0,0,0])
-Adds guides for PCB. 
+Adds guides for PCB.
 So you can place PCB under the top, or trasvrsal inside a box...
 This is better printed vertical, but it is designed to be printed horizontal without supports.
 @param height the guide long

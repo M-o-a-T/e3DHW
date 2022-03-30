@@ -9,7 +9,7 @@
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
    GNU Lesser General Public License for more details.
-   
+
    Designed with: OpenScad 2019.05 http://www.openscad.org/
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
@@ -17,14 +17,14 @@
 
 
  include <e3DHW_base_lib.scad>
- include <e3DHW_array_utils.scad> 
- include <e3DHW_addon_base.scad> 
- include <e3DHW_addon_batteries.scad> 
- 
+ include <e3DHW_array_utils.scad>
+ include <e3DHW_addon_base.scad>
+ include <e3DHW_addon_batteries.scad>
+
 // test for all battery holders
 module test_batteries(){
    for (k =["AAx3","AAAx3","18650x1","18650Px1"])
-      translate([0, get_position(k,_BATTHOLDER)*80,0]) 
+      translate([0, get_position(k,_BATTHOLDER)*80,0])
       union(){
          difference() {
             rectangleBase(120, 86, fill=100);
@@ -56,7 +56,7 @@ module test_LM3914(){
 // Arduino Yun max 300 mA (https://forum.arduino.cc/index.php?topic=188821.0)
 module do_arduino_pms(){
    module arduino_yun_box(x=0, y=0, rot=norot){
-   // the box border is carved 
+   // the box border is carved
        xb =get_maxX(arduinoYunVertex);
        translate([x,y,0]) rotate(rot) difference(){
             add_polyBox(arduinoYunVertex);
@@ -66,7 +66,7 @@ module do_arduino_pms(){
       carve_roundPolyBorder(get_squareArray2 (16, 13.50), r=0, x= xb+4,y=11);//SM 13.50, @11
            }
       }
-  // dimensions 
+  // dimensions
    xs = 106; //from container size
    ys = 145;
    xd = 83;  // center hole distance
@@ -74,14 +74,14 @@ module do_arduino_pms(){
 
    bx = 16.4;   // size box for 5V step-up module
    by = 35.5;
-   
+
    lx = 45.53;  // size box led batt-status
    ly = 13.80;
 
   // placements
    xb = 82;   //batteries holder position
    yb = 68;
- 
+
    xa =24 ;   // Arduino position
    ya = ys/2+8;
 //
@@ -115,10 +115,10 @@ difference(){
    carve_rectangleBox(ly, lx, x= EXTRA, y=20);  // box for status LEDs
    }
 }
- 
+
   // =================== UNCOMMENT TO RUN
 
  // test_batteries();
  // do_arduino_pms();
- 
+
   test_LM3914();

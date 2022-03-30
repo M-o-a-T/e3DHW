@@ -15,7 +15,7 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
- @file e3DHW_hardware_data.1.3.scad
+ @file e3DHW_hardware_data.scad
  Collection of hardware data, used by many e3DHW libraries.
  These data are function of the commercial hardware found, but also of the printer tolerances.
  Keeping this data here, it is possible to optimize them on the 3D printer and on the filament.\n

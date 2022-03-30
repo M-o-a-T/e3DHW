@@ -14,7 +14,7 @@
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
 */
 /**
-@file e3DHW_array_utils.1.3.scad
+@file e3DHW_array_utils.scad
 Grouping general purpose array utilities.
 
 \li First group is general purpose functions: col2array(), is_arrayOK().
@@ -22,7 +22,7 @@ Grouping general purpose array utilities.
 \li Third group defines functions to handle small DataBases implemented as an array of records. \n
 Condition: the field[0] of each record is a string and is the primary key. \n
 Usually the array is private and RO: it works like an associative array, with public getter functions. \n
-This structure was used for the first time in e3DHW_DIN_rail_lib.1.3.scad. Found it useful, the
+This structure was used for the first time in e3DHW_DIN_rail_lib.scad. Found it useful, the
 basic functions are collected here, so DataBases can be used by more libraries: is_in(), get_position(), 
 get_Key0(), valueGetter().
 
@@ -31,7 +31,7 @@ get_Key0(), valueGetter().
          \li nothing
 
   To use this library you must add the following lines to your code:
-       \li  <tt> include <e3DHW_array_utils.1.3.scad> </tt> \n
+       \li  <tt> include <e3DHW_array_utils.scad> </tt> \n
       <i> but don't allow duplicate include.</i>
 
  @author    Marco Sillano

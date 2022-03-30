@@ -15,7 +15,7 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
-@file e3DHW_addon_base.1.3.scad
+@file e3DHW_addon_base.scad
  Contains genaral pourpose modules that you can add to a board. 
   \image html base_addon.jpg
  <i>see e3DHW_addon_base_examples.scad</i>\n
@@ -56,16 +56,16 @@ Temporarily move a new \c carve_xxx ADDON to the ADD ZONE: so you can see it and
  
 @par dependences
     This library requires
-      \li \c e3DHW_base_lib.1.3.scad
-      \li \c e3DHW_array_utils.1.3.scad
-      \li \c e3DHW_hardware_data.1.3.scad
-      \li \c e3DHW_pcb_board_data.1.3.scad
+      \li \c e3DHW_base_lib.scad
+      \li \c e3DHW_array_utils.scad
+      \li \c e3DHW_hardware_data.scad
+      \li \c e3DHW_pcb_board_data.scad
       
  To use this library you must add the following lines to your code:
-      \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_array_utils.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt>\n
-      \li  <tt> include <e3DHW_addon_base.1.3.scad> </tt>
+      \li  <tt> include <e3DHW_base_lib.scad> </tt>
+      \li  <tt> include <e3DHW_array_utils.scad> </tt>
+      \li  <tt> include <e3DHW_hardware_data.scad> </tt>\n
+      \li  <tt> include <e3DHW_addon_base.scad> </tt>
      <i> but don't allow duplicate includes.</i>
 
 @see  Thanks to  Egor Chugay for 6x6 button models:
@@ -94,7 +94,7 @@ BOXSTEPL     = 1.1;      ///<  box internal step large (to fix PCB)
 BOXSTEPH     = 1;        ///<  box internal step height 
 
 //! @privatesection
-include <e3DHW_pcb_board_data.1.3.scad>
+include <e3DHW_pcb_board_data.scad>
 
 _tower_min_radius = 3;    // tower min limit (thower 6, hole 3: tower thickness = 1.5 mm)
 
@@ -106,7 +106,7 @@ _tower_min_radius = 3;    // tower min limit (thower 6, hole 3: tower thickness 
   Creates a box to place and fix a PCB module into a big board.
   @note  If <tt>height=BOXHEIGHT</tt> (small), the box keeps in place the PCB module (the PCB can be fixed with hot wax or screws).
   @note  If <tt>height >= 10</tt> [mm] and bottom <tt>closed = true</tt>, the box can be filled with silicon or rubber protection.
-  @param vertex is an array of points: <tt>[[p1.x, p1.y],[p2.x,p2,y],...]</tt>: the PCB module definition (any form). See e3DHW_pcb_board_data.1.3.scad
+  @param vertex is an array of points: <tt>[[p1.x, p1.y],[p2.x,p2,y],...]</tt>: the PCB module definition (any form). See e3DHW_pcb_board_data.scad
   @note The shape is augmented by BOXTOLERANCE.
   @param height box border height [mm], default \c BOXHEIGHT
   @param closed if \c true the box has a closed bottom, default \c false
@@ -436,7 +436,7 @@ module carve2_polySupport (vblock, xs, ys, hs, cbase=true, horiz = false, angle 
 /**
   @fn add_text(txt = "text", size=10, z= _text_add_relief, h= 0, x=0, y=0, rot = norot)
    Adds a text in relief.  
-   It uses TEXTFONT font (in e3DHW_hardware_data.1.3.scad ).
+   It uses TEXTFONT font (in e3DHW_hardware_data.scad ).
    @param txt the text string
    @param size height of  glyph [mm]
    @param z height of relief (default _text_add_relief).

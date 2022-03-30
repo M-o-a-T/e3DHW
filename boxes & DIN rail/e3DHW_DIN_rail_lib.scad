@@ -14,7 +14,7 @@
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
 */
 /**
-  @file e3DHW_DIN_rail_lib.1.3.scad
+  @file e3DHW_DIN_rail_lib.scad
    Here some supports that clips onto standard DIN rail (EN 50022, BS 5584, DIN 46277-3, TS35).
    We have here <i>four basic clip designs:</i>
    \li <i> No spring</i> (NS): Very simple, for no load, use it only for small separators.
@@ -76,14 +76,14 @@
 @par dependences
   This library requires:
       \li \c MCAD/polyholes.scad
-      \li \c e3DHW_hardware_data.1.3.scad
-      \li \c e3DHW_array_lib.1.3.scad
+      \li \c e3DHW_hardware_data.scad
+      \li \c e3DHW_array_lib.scad
       \li \c contrib\dinprofile.dxf
       
   To use this library you must add the following lines to your code:
-      \li  <tt> include <e3DHW_DIN_rail_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_array_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt> \n
+      \li  <tt> include <e3DHW_DIN_rail_lib.scad> </tt>
+      \li  <tt> include <e3DHW_array_lib.scad> </tt>
+      \li  <tt> include <e3DHW_hardware_data.scad> </tt> \n
       <i> but don't allow duplicate include.</i>
  
 @see  Thanks to maker dseelbach80 for inspiration: 

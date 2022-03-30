@@ -15,9 +15,9 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
- @file e3DHW_pcb_board_data.1.3.scad
+ @file e3DHW_pcb_board_data.scad
  
- Collection of data of commercial PCB geometries,used by e3DHW_addon_base.1.3.scad
+ Collection of data of commercial PCB geometries,used by e3DHW_addon_base.scad
  
  You can contribute sending me new data: I will add it in next release.
 

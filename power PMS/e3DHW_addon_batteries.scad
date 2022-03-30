@@ -15,7 +15,7 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
-@file e3DHW_addon_batteries.1.3.scad
+@file e3DHW_addon_batteries.scad
  ADDON modules for battery holders and PMS projects.
  
  The PMS Power Management System, for DIY electronics (see e3dhw-pms-intro_en.pdf) make use of rechargeable batteries (NiMH, LiIon) and some pcb board.\n
@@ -25,15 +25,15 @@
 @par dependences
     This library requires
       \li \c contrib/flexbatter.repaired.scad or \c contrib/flex<xxx>.stl files
-      \li \c e3DHW_base_lib.1.3.scad
-      \li \c e3DHW_array_utils.1.3.scad
-      \li \c e3DHW_addon_base.1.3.scad
+      \li \c e3DHW_base_lib.scad
+      \li \c e3DHW_array_utils.scad
+      \li \c e3DHW_addon_base.scad
       
  To use this library you must add the following lines to your code:
-      \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_array_utils.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_addon_base.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_addon_batteries.1.3.scad> </tt>\n
+      \li  <tt> include <e3DHW_base_lib.scad> </tt>
+      \li  <tt> include <e3DHW_array_utils.scad> </tt>
+      \li  <tt> include <e3DHW_addon_base.scad> </tt>
+      \li  <tt> include <e3DHW_addon_batteries.scad> </tt>\n
      <i> but don't allow duplicate includes.</i>
      
 @par Acknowledgment

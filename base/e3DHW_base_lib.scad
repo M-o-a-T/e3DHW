@@ -22,8 +22,8 @@ For a general overview of \b e3DHW \b project see <a target="_blank" href='https
   (originale in italiano: <a target="_blank" href=https://cdn.thingiverse.com/assets/f5/37/2d/68/ec/e3DHW_HOWTO_it.pdf> https://cdn.thingiverse.com/assets/f5/37/2d/68/ec/e3DHW_HOWTO_it.pdf </a>). \n
 
 The OpenScad implementation uses a growing set of full parametric libraries, all named \c e3DHW_xxxxx.scad.  \n
-The \ref e3DHW_base_lib.1.3.scad "base library" generates a hollow or solid <b>main board</b> of any shape, to be used as structural support for electronics modules and devices.\n
-Also \ref e3DHW_DIN_boxes_lib.1.3.scad "DIN boxes library" contains <b>box</b> modules, to be used alone or inside a DIN rail enclosure: on boxes ADDONs can be placed on any plane: top, bottom, lateral.
+The \ref e3DHW_base_lib.scad "base library" generates a hollow or solid <b>main board</b> of any shape, to be used as structural support for electronics modules and devices.\n
+Also \ref e3DHW_DIN_boxes_lib.scad "DIN boxes library" contains <b>box</b> modules, to be used alone or inside a DIN rail enclosure: on boxes ADDONs can be placed on any plane: top, bottom, lateral.
 
  A hollow <i>main board</i> with a square grid pattern:
      \li uses less material 
@@ -84,7 +84,7 @@ I would like to apologize for my bad english, it is not my nativ language.
 */
 
 /**
- @file e3DHW_base_lib.1.3.scad
+ @file e3DHW_base_lib.scad
 
 Generates a solid or perforated plate, the structural support for electronics modules and devices.
   \image html base_lib01.jpg
@@ -104,13 +104,13 @@ The same base board can be used in a container or with DIN rail clips, or...
 @par dependences
     This library requires:
             \li \c MCAD/polyholes.scad
-            \li \c e3DHW_array_utils.1.3.scad
-            \li \c e3DHW_hardware_data.1.3.scad
+            \li \c e3DHW_array_utils.scad
+            \li \c e3DHW_hardware_data.scad
             
     To use this library you must add the following line to your code:
-            \li  <tt> include <e3DHW_array_utils.1.3.scad> </tt>
-            \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt>\n
-            \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
+            \li  <tt> include <e3DHW_array_utils.scad> </tt>
+            \li  <tt> include <e3DHW_hardware_data.scad> </tt>\n
+            \li  <tt> include <e3DHW_base_lib.scad> </tt>
             <i> but don't allow duplicate includes. </i>
 
  @author    Marco Sillano

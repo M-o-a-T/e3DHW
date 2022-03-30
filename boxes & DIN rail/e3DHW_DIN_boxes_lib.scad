@@ -14,7 +14,7 @@
    Designed with http://www.openscad.org/
 */
 /**
-@file e3DHW_DIN_boxes_lib.1.3.scad
+@file e3DHW_DIN_boxes_lib.scad
 Contains parametric general purpose boxes and separators and boxes for DIN rail. 
 @par General purpose boxes
    In this library are 2 modules buiding boxes: a cuboid box rectangleBox() and a genaral purpose do_standalone_polyBox(). This one has the base polygonal, defined by an array of points.\n
@@ -86,19 +86,19 @@ The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral
 @par dependences
     This library requires:
             \li \c MCAD/polyholes.scad
-            \li \c e3DHW_base_lib.1.3.scad
-            \li \c e3DHW_array_utils.1.3.scad
-            \li \c e3DHW_hardware_data.1.3.scad
-            \li \c e3DHW_addon_base.1.3.scad
-            \li \c e3DHW_DIN_rail_lib.1.3.scad
+            \li \c e3DHW_base_lib.scad
+            \li \c e3DHW_array_utils.scad
+            \li \c e3DHW_hardware_data.scad
+            \li \c e3DHW_addon_base.scad
+            \li \c e3DHW_DIN_rail_lib.scad
 
     To use this library you must add the following line to your code:
-            \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-            \li  <tt> include <e3DHW_array_utils.1.3.scad></tt>
-            \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt>
-            \li  <tt> include <e3DHW_addon_base.1.3.scad></tt>
-            \li  <tt> include <e3DHW_DIN_rail_lib.1.3.scad></tt>
-            \li  <tt> include <e3DHW_DIN_boxes_lib.1.3.scad></tt>\n
+            \li  <tt> include <e3DHW_base_lib.scad> </tt>
+            \li  <tt> include <e3DHW_array_utils.scad></tt>
+            \li  <tt> include <e3DHW_hardware_data.scad> </tt>
+            \li  <tt> include <e3DHW_addon_base.scad></tt>
+            \li  <tt> include <e3DHW_DIN_rail_lib.scad></tt>
+            \li  <tt> include <e3DHW_DIN_boxes_lib.scad></tt>\n
             <i> but don't allow duplicate includes.</i>
 
  @author    Marco Sillano
@@ -115,7 +115,7 @@ The Lid stile LSOUT is used when the lid is panel, car it covers the box lateral
 OPTION_BOXPRINT = false; ///< true: all pieces at z=0, otherwhise the lid is in place.
 /**
 A decreasing set of box thicknesses (printer and filament dependent).
-1 - \ref BOARDTHICKNESS (mm 2-3) for big main boards and lids with many ADDONs (in  e3DHW_base_lib.1.3.scad )\n
+1 - \ref BOARDTHICKNESS (mm 2-3) for big main boards and lids with many ADDONs (in  e3DHW_base_lib.scad )\n
 2 - \ref TOPTHICKNESS (mm 1.8-2.5) for panels: the bottom of DIN boxes, the top if used as panel.\n
 3 - \ref NOTOPTHICKNESS (mm 1.4-2) for lateral sides of boxes, for the botton (no panel)\n
 4 - \ref SEPARATORTHICKNESS = (mm 1-1.6) minimal thickness for separators.
@@ -170,7 +170,7 @@ function _getD(parray, m =0, i=0) = ( i == len(parray)? m: _getD( parray,(parray
   @param towerAHoles is an array3 of towers for lid fixing. Defines the holes on tower top: <tt>[[t0.x, t0.y, t0.d],..]</tt>. See do_nuthole() for codes.\n
    Default - \c 'undef': no towers at all. <tt>tn.d = undef </tt>: no 'n' tower;  <tt>tn.d = 0 </tt>: no carving on 'n' tower top\n
   @param towerRadius default = 3 mm. minimun, can be overwrited: see get_towerRadius(), add1_tower().
-  @param round_box radius round box corners. Default _slabcorner (in  e3DHW_base_lib.1.3.scad ); max 3;
+  @param round_box radius round box corners. Default _slabcorner (in  e3DHW_base_lib.scad ); max 3;
   */
   module do_standalone_polyBox(vertex, height = 20, lidAHoles = undef, lidStyle = LSOUT, lidThick = BOARDTHICKNESS, lidFill = 100, bottomThick=TOPTHICKNESS, bottomFill = 100, sideThick = NOTOPTHICKNESS, towerAHoles = undef, towerRadius=3, x=0, y=0, rot = norot, round_box=_slabcorner){
    assert(is_arrayOK(vertex, 2, 3), "test on array failed");
@@ -253,7 +253,7 @@ module do_standalone_polyLid(vertex, height = 20, lidAHoles = undef, lidStyle = 
   Standalone box, an enclosures for DIY electronic projects.
   This is a general pourpose rectangular box, in two pices: a base box and a lid board.
   As default the cover is tied to base using 4 self-tapping screws, placed at the 4 corners. \n
-  The front panel can be the cover or the base: ADDONs can be added on the floor of the box and/or on the lid. Also lateral sides can have ADDONS: see e3DHW_addon_box.1.3.scad.\n
+  The front panel can be the cover or the base: ADDONs can be added on the floor of the box and/or on the lid. Also lateral sides can have ADDONS: see e3DHW_addon_box.scad.\n
   @image html rectbox.png
   If required the lid and/or the bottom can be perforated ( \c lidFill, \c bottomFill) for ventilation.
   @param length  the total box length, mandatry. Min variable (with defaults: 15).

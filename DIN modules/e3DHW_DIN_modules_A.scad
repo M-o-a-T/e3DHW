@@ -14,10 +14,10 @@
    Designed with http://www.openscad.org/
 */
 /**
- @file e3DHW_DIN_modules_A.1.3.scad
+ @file e3DHW_DIN_modules_A.scad
  Collection of ready to print and use DIN modules.
  Here you can found:
-  \li dinBasicTerminalBlock() serie. It uses simple double mammuts, size variabile, wire variable, as defined in e3DHW_addon_terminal.1.3.scad. \n
+  \li dinBasicTerminalBlock() serie. It uses simple double mammuts, size variabile, wire variable, as defined in e3DHW_addon_terminal.scad. \n
   \image html dinterminalbasic.jpg
    The family is completed by end plates, dinBasicEndPlate() and strong end brackets with screw, dinBasicEndBrackets().
   
@@ -31,26 +31,26 @@
    
     \li dinStrainRelief() to fix cables (diameter 3-22 mm) to DIN rail. Requires nylon tie straps.
    \image  html moremodules.jpg
-@note: Terminal are designed to require as parameter only the cable section. The correct mammut core is chose from e3DHW_mammut_data.1.3.scad.
+@note: Terminal are designed to require as parameter only the cable section. The correct mammut core is chose from e3DHW_mammut_data.scad.
 
 @par dependences
   This library requires:
-      \li \c e3DHW_base_lib.1.3.scad
-      \li \c e3DHW_hardware_data.1.3.scad
-      \li \c e3DHW_addon_base.1.3.scad
-      \li \c e3DHW_DIN_rail_lib.1.3.scad
-      \li \c e3DHW_DIN_boxes_lib.1.3.scad
-      \li \c e3DHW_addon_terminal.1.3.scad
-     \li \c e3DHW_mammut_data.1.3.scad
+      \li \c e3DHW_base_lib.scad
+      \li \c e3DHW_hardware_data.scad
+      \li \c e3DHW_addon_base.scad
+      \li \c e3DHW_DIN_rail_lib.scad
+      \li \c e3DHW_DIN_boxes_lib.scad
+      \li \c e3DHW_addon_terminal.scad
+     \li \c e3DHW_mammut_data.scad
       
   To use this collection you must add the following lines to your code:
-      \li <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-      \li <tt> include <e3DHW_hardware_data.1.3.scad> </tt>
-      \li <tt> include <e3DHW_addon_base.1.3.scad> </tt>
-      \li <tt> include <e3DHW_DIN_rail_lib.1.3.scad> </tt>
-      \li <tt> include <e3DHW_DIN_boxes_lib.1.3.scad> </tt>
-      \li <tt> include <e3DHW_addon_terminal.1.3.scad> </tt>
-      \li <tt> include <e3DHW_DIN_modules_A.1.3.scad> </tt>\n
+      \li <tt> include <e3DHW_base_lib.scad> </tt>
+      \li <tt> include <e3DHW_hardware_data.scad> </tt>
+      \li <tt> include <e3DHW_addon_base.scad> </tt>
+      \li <tt> include <e3DHW_DIN_rail_lib.scad> </tt>
+      \li <tt> include <e3DHW_DIN_boxes_lib.scad> </tt>
+      \li <tt> include <e3DHW_addon_terminal.scad> </tt>
+      \li <tt> include <e3DHW_DIN_modules_A.scad> </tt>\n
           <i>but don't allow duplicate include.</i>
 
  @author    Marco Sillano
@@ -69,11 +69,11 @@ function _get_basicPhat(d) =([[3,0.5],[0,0],[d,0],[d,0.5],[d-3,0.5],[d-3,35],[d-
 // for Tower Terminals serie
 _clip_TwBrackets = "SCB";   // the smallest screw clip, used for dinTowerEndBrackets()
 
-// return parametric vertex  array: uses some getter protected functions in e3DHW_addon_terminal.1.3.scad
+// return parametric vertex  array: uses some getter protected functions in e3DHW_addon_terminal.scad
 function _getPolyTower(p, mmq)=(let(idx=_get_MIdx(mmq))[[0,0],[p.y,0],[p.y,1],[p.y+3,1],[p.y+3,_getMyTot(idx)+6],[(p.y+p.z)/2,p.x],[(p.y-p.z)/2,p.x,],[-3, _getMyTot(idx)+6],[-3,1],[ 0,1]]);
 
 // returns in a vector with all parameters for Tower profile (_getPolyTower)
-//  uses some getter protected functions in e3DHW_addon_terminal.1.3.scad
+//  uses some getter protected functions in e3DHW_addon_terminal.scad
 function _gethbd0dhVect(n, mmq)=(let(idx=_get_MIdx(mmq))[ 
  max(((_getMyTot(idx)+0.8)*n+6),(get_rail2top(_clip_TwBrackets)+6)), // hb: profile height, on x axis
  max(46,_getMxT(idx)*n+16),  // d0: profile bottom large, y axis
@@ -83,7 +83,7 @@ function _gethbd0dhVect(n, mmq)=(let(idx=_get_MIdx(mmq))[
 /**
 @fn  dinBasicTerminalBlock(n, mmq=2)
 Strong terminal, it uses double mammuts.
-Full parametric, auto-select the correct mammut as defined in e3DHW_mammut_data.1.3.scad.\n
+Full parametric, auto-select the correct mammut as defined in e3DHW_mammut_data.scad.\n
 All elements of the \c Basic \c Serie : dinBasicTerminalBlock(), dinBasicEndPlate(), dinBasicEndBrackets() have same parametric shape.
 @param n number of mammuts
 @param mmq: wire section (mmq)
@@ -134,7 +134,7 @@ module dinBasicEndBrackets(s=10){
 Space and filament saving DIN terminal, structured as an Hanoi tower.
 This block is with a side open: it will be closed by next terminal or by an EndPlate.\n 
 Changing internal connections, the bigger terminal (n = 3) can be used as 1x6, or 1x2+1x4, or 3x2. \n
-Full parametric, selects the correct mammut as defined in e3DHW_mammut_data.1.3.scad\n
+Full parametric, selects the correct mammut as defined in e3DHW_mammut_data.scad\n
 All elements of the \c Tower \c Serie : dinTowerTerminalBlock(), dinTowerEndPlate(), dinTowerEndBrackets() have same parametric shape.
 @note Requires some wire to internal connect mammuts. Fix it with hot wax.
 @param n number of floors, [1,2,3]

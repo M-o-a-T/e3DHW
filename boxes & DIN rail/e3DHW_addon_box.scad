@@ -36,20 +36,20 @@ CARVE: difference() with box.
 */
 use <MCAD/polyholes.scad>
 /**
-@file e3DHW_addon_box.1.3.scad
+@file e3DHW_addon_box.scad
  Contains general pourpose modules that you can add to a box. 
- This is the vertical version of e3DHW_addon_base.1.3.scad, for box sides.
+ This is the vertical version of e3DHW_addon_base.scad, for box sides.
  It is not difficult to transform an horizontal ADDOH into a vertical one. For your convenience 
  here some common ADDONS useful for vertical panels.
 @par dependences
     This library requires
-      \li \c e3DHW_base_lib.1.3.scad
-      \li \c e3DHW_addon_base.1.3.scad
+      \li \c e3DHW_base_lib.scad
+      \li \c e3DHW_addon_base.scad
        
  To use this library you must add the following lines to your code:
-      \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_addon_base.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt>\n
+      \li  <tt> include <e3DHW_base_lib.scad> </tt>
+      \li  <tt> include <e3DHW_addon_base.scad> </tt>
+      \li  <tt> include <e3DHW_hardware_data.scad> </tt>\n
       <i> but don't allow duplicate includes.</i>
 
  @author    Marco Sillano

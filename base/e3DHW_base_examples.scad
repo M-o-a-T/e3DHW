@@ -16,12 +16,12 @@
 */
 /**
  @file e3DHW_base_examples.scad
- Examples for library e3DHW_base_lib.1.3.scad
+ Examples for library e3DHW_base_lib.scad
  */
 
-include <e3DHW_base_lib.1.3.scad>
-include <e3DHW_array_utils.1.3.scad>
-include <e3DHW_hardware_data.1.3.scad>
+include <e3DHW_base_lib.scad>
+include <e3DHW_array_utils.scad>
+include <e3DHW_hardware_data.scad>
 
 // Shows the use of rectangleBase(), rectangle4Holes(), do_perimetral(), polyBase().
 module test_base_lib() {
@@ -37,7 +37,7 @@ module test_base_lib() {
 }
 
 // Shows all special holes that do_nuthole() can make.
-// Print this example to fine tune the hardware data (in e3DHW_hardware_data.1.3.scad) for your 3D printer and filament.
+// Print this example to fine tune the hardware data (in e3DHW_hardware_data.scad) for your 3D printer and filament.
  
  
 module test_do_nuthole(){

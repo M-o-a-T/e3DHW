@@ -16,10 +16,10 @@
 */
 
 
- include <e3DHW_base_lib.1.3.scad>
- include <e3DHW_array_utils.1.3.scad> 
- include <e3DHW_addon_base.1.3.scad> 
- include <e3DHW_addon_batteries.1.3.scad> 
+ include <e3DHW_base_lib.scad>
+ include <e3DHW_array_utils.scad> 
+ include <e3DHW_addon_base.scad> 
+ include <e3DHW_addon_batteries.scad> 
  
 // test for all battery holders
 module test_batteries(){
@@ -47,10 +47,10 @@ module test_LM3914(){
    }
 
 // required by do_arduino_pms()
-  include <e3DHW_hardware_data.1.3.scad>;
-  include <e3DHW_pcb_board_data.1.3.scad>;    // arduino board data
-  include <e3DHW_addon_terminal.1.3.scad>;    // terminals
-  include <e3DHW_addon_box.1.3.scad>;         // for carve_roundPolyBorder
+  include <e3DHW_hardware_data.scad>;
+  include <e3DHW_pcb_board_data.scad>;    // arduino board data
+  include <e3DHW_addon_terminal.scad>;    // terminals
+  include <e3DHW_addon_box.scad>;         // for carve_roundPolyBorder
 
 // Arduino Yun board with PMS
 // Arduino Yun max 300 mA (https://forum.arduino.cc/index.php?topic=188821.0)

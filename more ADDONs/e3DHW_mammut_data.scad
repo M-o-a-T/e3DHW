@@ -15,8 +15,8 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 /**
- @file e3DHW_mammut_data.1.3.scad
- Collection of commercial mammut data, used by e3DHW_addon_terminal.1.3.scad.
+ @file e3DHW_mammut_data.scad
+ Collection of commercial mammut data, used by e3DHW_addon_terminal.scad.
  \image html mammutstrip.jpg
  \li \b Mammut  connectors uses the metallic core of industrial cheap mammut strips. 
 @note You must update the MAMMUT array with the sizes of naked mammut you use.
@@ -42,7 +42,7 @@ MAMMUT = [[ 4,  3.1,   6,   11,   14,   4,   10,   7,  "BM 9201"],  // [0]
 //       7=  step, mammut distance (at least [2]+1 mm) 
 //       8=  model reference
 //
-// note: if len(MAMMUT) > 5 you must update the function _get_MIdx() in e3DHW_addon_terminal.1.3.scad !!
+// note: if len(MAMMUT) > 5 you must update the function _get_MIdx() in e3DHW_addon_terminal.scad !!
 //
 // warning: the clearence (7) influences also the max working tension.
 //   see https://www.semikron.com/dl/service-support/downloads/download/semikron-application-note-insulation-coordination-en-2017-12-07-rev-03/

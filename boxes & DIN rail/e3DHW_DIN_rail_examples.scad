@@ -14,9 +14,9 @@
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
-include <e3DHW_hardware_data.1.3.scad>
-include <e3DHW_DIN_rail_lib.1.3.scad>
-include <e3DHW_array_lib.1.3.scad>
+include <e3DHW_hardware_data.scad>
+include <e3DHW_DIN_rail_lib.scad>
+include <e3DHW_array_lib.scad>
 // test: all DIN clips on a rail
 
 module show_all(){

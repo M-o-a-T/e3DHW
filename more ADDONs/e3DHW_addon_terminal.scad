@@ -16,7 +16,7 @@
 */
 
 /**
- @file e3DHW_addon_terminal.1.3.scad
+ @file e3DHW_addon_terminal.scad
  Custom connectors strip, using mammut or screw.
  
 This terminals are well situed for AC applications. They are classified in parametric series:
@@ -44,22 +44,22 @@ This serie (Double Type) is more like the original mammut strip: the front is in
 \image html terminal3M.jpg
    Well situed for internal small terminal strip on boards. Dimension of a strip with N elements x: 10 *N + 3, y: 12 [mm].
 
-@note  The mammut data are in file e3DHW_mammut_data.1.3.scad. Keep it updated with correct measurements of mammuts you use.
+@note  The mammut data are in file e3DHW_mammut_data.scad. Keep it updated with correct measurements of mammuts you use.
 
 @par dependences
   This library requires:
-      \li \c e3DHW_base_lib.1.3.scad
-      \li \c e3DHW_hardware_data.1.3.scad
-      \li \c e3DHW_addon_base.1.3.scad
-      \li \c e3DHW_array_utils.1.3.scad
-      \li \c e3DHW_mammut_data.1.3.scad
+      \li \c e3DHW_base_lib.scad
+      \li \c e3DHW_hardware_data.scad
+      \li \c e3DHW_addon_base.scad
+      \li \c e3DHW_array_utils.scad
+      \li \c e3DHW_mammut_data.scad
       
   To use this library you must add the following lines to your code:
-      \li  <tt> include <e3DHW_base_lib.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_addon_base.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_array_utils.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_hardware_data.1.3.scad> </tt>
-      \li  <tt> include <e3DHW_addon_terminal.1.3.scad> </tt>
+      \li  <tt> include <e3DHW_base_lib.scad> </tt>
+      \li  <tt> include <e3DHW_addon_base.scad> </tt>
+      \li  <tt> include <e3DHW_array_utils.scad> </tt>
+      \li  <tt> include <e3DHW_hardware_data.scad> </tt>
+      \li  <tt> include <e3DHW_addon_terminal.scad> </tt>
       \li <i>but don't allow duplicate include.</i>
  
  @author    Marco Sillano
@@ -72,7 +72,7 @@ This serie (Double Type) is more like the original mammut strip: the front is in
  @example e3DHW_addon_terminal_examples.scad
 */
 //! @privatesection
-include <e3DHW_mammut_data.1.3.scad>
+include <e3DHW_mammut_data.scad>
 
 //! @publicsection
 // constants used for type - don't change it

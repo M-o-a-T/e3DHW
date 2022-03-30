@@ -15,10 +15,10 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.1.3.scad>;
-include <e3DHW_addon_base.1.3.scad>
-include <e3DHW_hardware_data.1.3.scad> 
-include <e3DHW_addon_terminal.1.3.scad>
+include <e3DHW_base_lib.scad>;
+include <e3DHW_addon_base.scad>
+include <e3DHW_hardware_data.scad> 
+include <e3DHW_addon_terminal.scad>
 
 // -------  terminalM3Block test
 module test_terminalM3Block() {

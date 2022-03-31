@@ -126,7 +126,7 @@ function get_minY(table) = min(col2array(table, 1)); ///< utility: returns min Y
 function is_in(key0,table) = (is_num(search(key0,table)[0])); ///< utility: test the presence of \c key0 element on col[0]: returns \c true/false
 
 // generic access functions, 'key0' is string, used as index.
-function get_position(key0, table) = (assert(is_in([key0],table), "key code not valid") search([key0],table)[0]);               ///< given the key0 returns a row number (0..len()-1), inverse of get_Key0().
+function get_position(key0, table) = (assert(is_in([key0],table), str("key code ",key0," not valid")) search([key0],table)[0]);               ///< given the key0 returns a row number (0..len()-1), inverse of get_Key0().
 
 function get_Key0(i, table) = table[i][0];    ///< given row number, returns the key0[i], inverse of get_position().
 

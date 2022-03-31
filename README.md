@@ -1,4 +1,50 @@
-# e3DHW-make-DIY-electronics-hardware-like-a-professional
+# e3DHW
+
+This library contains a whole lot of OpenSCAD macros for DIY electronics
+(DIN rail holders, battery holders, enclosures and whatnot).
+
+## Installation
+
+Globally:
+
+    $ cd /usr/share/openscad/libraries/
+    $ sudo git clone https://github.com/M-o-a-T/e3DHW
+
+Per user:
+
+    $ cd ~/.local/share/OpenSCAD/libraries
+    $ git clone https://github.com/M-o-a-T/e3DHW
+
+Locally, as a subproject:
+
+    $ cd …/src/your-project
+    $ git submodule add https://github.com/M-o-a-T/e3DHW
+    $ git submodule update
+
+Some modules in this library require [the `MCAD` library](git@github.com:openscad/MCAD.git) to be
+installed (globally).
+
+## Usage
+
+See the `examples` folder for a lot of sample uses.
+
+Note that the examples use relative paths. You should to use absolute paths
+in your own project, i.e. `include <e3DHW/path/file.scad>` instead of
+`include <../path/file.scad>`.
+
+## Changes
+
+This fork is (c) 2022 Matthias Urlichs <matthias@urlichs.de>.
+
+* moved to top level
+* removed redundant naming
+* tested and enabled all examples
+
+The original is [here](https://github.com/msillano/e3DHW-make-DIY-electronics-hardware-like-a-professional).
+
+## Original READMEs
+
+### e3DHW-make-DIY-electronics-hardware-like-a-professional
 
 The evolution of the electronics from the single components to the macro-sets (boards and shields)
 was positive, allowing the rapid prototyping of complex projects until a few years ago
@@ -26,7 +72,7 @@ terminals, connectors etc. can be inserted into the 3D project by simplifying as
  - Added 'base/e3DHW_array_utils.scad'
  - File help for working version: e3DHWref.1.3.chm.
 
-# Working version 1.3
+### Working version 1.3
 
 All OpenScad libraries are designed to be very easy to use in your projects:
 

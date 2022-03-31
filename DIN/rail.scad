@@ -144,7 +144,7 @@ module do_DINClip(clip, h, d, x=0, y=0, rot = [0,0,0]){
  if (clip == "NSS") dinRailSmallNoSpring(h,d); else
  if (clip == "MSX") dinRailExtraMSpring(h,d); else
     assert(false, str("the DIN clip code '", clip, "' is not valid"));
- if (OPTION_RAIL > 0) %translate([ d* get_xm(clip) + get_xq(clip) +get_exd(clip)/2 + DINSL/2, -get_rail2top(clip),0])rotate([0,0,180])linear_extrude(OPTION_RAIL)import("contrib/dinprofile.dxf");
+ if (OPTION_RAIL > 0) %translate([ d* get_xm(clip) + get_xq(clip) +get_exd(clip)/2 + DINSL/2, -get_rail2top(clip),0])rotate([0,0,180])linear_extrude(OPTION_RAIL)import("../contrib/dinprofile.dxf");
   }
 }
 

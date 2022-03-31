@@ -14,6 +14,8 @@
    Tested with: 3DRAG 1.2 https://www.futurashop.it/3drag-stampante-3d-versione-1.2-in-kit-7350-3dragk
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
+
+include <../base/array.scad>
 /**
 @file e3DHW_addon_base.scad
  Contains genaral pourpose modules that you can add to a board.
@@ -94,7 +96,7 @@ BOXSTEPL     = 1.1;      ///<  box internal step large (to fix PCB)
 BOXSTEPH     = 1;        ///<  box internal step height
 
 //! @privatesection
-include <e3DHW_pcb_board_data.scad>
+include <../data/pcb_board.scad>
 
 _tower_min_radius = 3;    // tower min limit (thower 6, hole 3: tower thickness = 1.5 mm)
 

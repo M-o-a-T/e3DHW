@@ -72,7 +72,7 @@ This serie (Double Type) is more like the original mammut strip: the front is in
  @example e3DHW_addon_terminal_examples.scad
 */
 //! @privatesection
-include <e3DHW_mammut_data.scad>
+include <../data/mammut.scad>
 
 //! @publicsection
 // constants used for type - don't change it

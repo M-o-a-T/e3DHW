@@ -15,14 +15,14 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.scad>
-include <e3DHW_array_lib.scad>
-include <e3DHW_addon_base.scad>
-include <e3DHW_hardware_data.scad>
-include <e3DHW_DIN_rail_lib.scad>
-include <e3DHW_DIN_boxes_lib.scad>
-include <e3DHW_addon_terminal.scad>
-include <e3DHW_DIN_modules_A.scad>
+include <../base/lib.scad>
+include <../base/array.scad>
+include <../addon/base.scad>
+include <../data/hardware.scad>
+include <../DIN/rail.scad>
+include <../DIN/boxes.scad>
+include <../addon/terminal.scad>
+include <../DIN/modules_A.scad>
 
 // all basic family terminals
 module show_basic_family() {
@@ -55,6 +55,6 @@ module show_more(){
 }
 
 // =================== UNCOMMENT TO RUN
- show_basic_family();
-// show_tower_family();
-// show_more();
+rotate([-90,180,0]) show_basic_family();
+translate([50,0,0]) rotate([-90,-90,0]) show_tower_family();
+translate([110,0,0]) show_more();

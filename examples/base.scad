@@ -19,9 +19,9 @@
  Examples for library e3DHW_base_lib.scad
  */
 
-include <e3DHW_base_lib.scad>
-include <e3DHW_array_utils.scad>
-include <e3DHW_hardware_data.scad>
+include <../base/lib.scad>
+include <../base/array.scad>
+include <../data/hardware.scad>
 
 // Shows the use of rectangleBase(), rectangle4Holes(), do_perimetral(), polyBase().
 module test_base_lib() {
@@ -81,7 +81,7 @@ module test_get_boltz_get_nutz(){
 
 // =================== UNCOMMENT TO RUN
 
-// test_base_lib();
-// test_do_nuthole();
-// test_get_boltz_get_nutz();
+test_base_lib();
+translate([-50,0,0]) test_do_nuthole();
+translate([0,-30,0]) test_get_boltz_get_nutz();
 

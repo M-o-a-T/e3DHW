@@ -15,10 +15,10 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.scad>
-include <e3DHW_array_utils.scad>
-include <e3DHW_addon_base.scad>
-include <e3DHW_hardware_data.scad>
+include <../base/lib.scad>
+include <../base/array.scad>
+include <../addon/base.scad>
+include <../data/hardware.scad>
 
 //
 module all_base_addon(){
@@ -76,23 +76,23 @@ difference(){
 module test_button6x6(){
    difference(){
       union(){
-         rectangleBase(200,80, fill=100); // a solid base
+         rectangleBase(200,50, fill=100); // a solid base
          for(h=[5:13]){
-            add1_button6x6(h, x=h*20-90, y = 20);    // test button6x6
+            if(h>6) add1_button6x6(h, x=h*20-90, y = 20);    // test button6x6
             add1_SButton6x6(h, x=h*20-90, y = 40);   // SButton6x6
             translate([h*20-95,0,BOARDTHICKNESS-EXTRA])linear_extrude(height = 1)text(str(h));
             }
-         add1_SButton6x6(4.3, x=10, y = 60);  // extra _SButton6x6 for 4.3
-        #  translate([130,20,11-2])rotate([180,0,0]) include <contrib/button6x6-11.scad>;
+         // add1_SButton6x6(4.3, x=10, y = 60);  // extra _SButton6x6 for 4.3
+        //  translate([130,20,11-2])rotate([180,0,0]) include <../contrib/button6x6-11.scad>;
          }
       for(h=[5:13]){
          carve2_button6x6(h, x=h*20-90, y = 20);
          carve2_SButton6x6(h, x=h*20-90, y = 40);
          }
-      # translate([0,0,4.1]) SButton_central(x=10, y = 60, rot= [180,0,0]);  // central for extra SButton6x6
-      #  translate([10,60,8.6])rotate([180,0,0]) include <contrib/button6x6-4.3.scad>; // the button in place
-      carve2_SButton6x6(4.3, x=10, y = 60);            // extra SButton6x6 for 4.3
-      translate([-EXTRA,60,-EXTRA])cube([210,50, 40]); // to section extra SButton6x6 for 4.3
+      // translate([0,0,4.1]) SButton_central(x=10, y = 60, rot= [180,0,0]);  // central for extra SButton6x6
+      //  translate([10,60,8.6])rotate([180,0,0]) include <../contrib/button6x6-4.3.scad>; // the button in place
+      //carve2_SButton6x6(4.3, x=10, y = 60);            // extra SButton6x6 for 4.3
+      //translate([-EXTRA,60,-EXTRA])cube([210,50, 40]); // to section extra SButton6x6 for 4.3
      }
    }
 
@@ -112,10 +112,10 @@ module watering_Sonoff04(){
       }
   }
 
-// =================== UNCOMMENT TO RUN
 
- all_base_addon();
-// test_button6x6();
-// watering_Sonoff04();
+
+translate([90,0,0]) all_base_addon();
+rotate(90) test_button6x6();
+translate([-80,0,0]) rotate(90) watering_Sonoff04();
 
 

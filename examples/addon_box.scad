@@ -15,12 +15,12 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.scad>
-include <e3DHW_hardware_data.scad>
-include <e3DHW_addon_base.scad>
-include <e3DHW_DIN_rail_lib.scad>
-include <e3DHW_DIN_boxes_lib.scad>
-include <e3DHW_addon_box.scad>
+include <../base/lib.scad>
+include <../data/hardware.scad>
+include <../addon/base.scad>
+include <../DIN/rail.scad>
+include <../DIN/boxes.scad>
+include <../addon/box.scad>
 
 // Shows all vertical box addons
 module vertical_test() {
@@ -42,7 +42,7 @@ difference() {
 // This is the DIN container for the project:
 // https://www.hackster.io/msillano/adding-a-remote-switch-to-sonoff-one-pin-for-switch-led-901cd3
 module din_DSP4(){
- include <e3DHW_addon_terminal.scad> //required for this project
+ include <../addon/terminal.scad> //required for this project
 // local re-definitions for this project
   _TEXTFONT   ="DejaVu Sans Mono: style=Bold";  // test
   DEFAULTFILL = 60;
@@ -79,5 +79,5 @@ _hm=3; // 3 half modules = 26.5 mm
 
 // =================== UNCOMMENT TO RUN
 
-// vertical_test();
-// din_DSP4();
+vertical_test();
+translate([-100,30,0]) rotate([90,0,0]) din_DSP4();

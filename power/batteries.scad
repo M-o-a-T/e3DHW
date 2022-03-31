@@ -79,7 +79,7 @@ This module uses <tt>contrib/flexbatter.repaired.scad</tt>
 @see do_flexBatteryB().
 */
 module do_flexBatteryA(code){
-   include <contrib/flexbatter.repaired.scad>;
+   include <../contrib/flexbatter.repaired.scad>;
    if (code=="AAx3") flexbatterAA(n=3);
    else if (code=="AAAx3") flexbatterAAA(n=3);
    else if (code=="18650x1") flexbatter18650(n=1);

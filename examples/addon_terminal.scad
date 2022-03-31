@@ -15,10 +15,10 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.scad>;
-include <e3DHW_addon_base.scad>
-include <e3DHW_hardware_data.scad>
-include <e3DHW_addon_terminal.scad>
+include <../base/lib.scad>;
+include <../addon/base.scad>
+include <../data/hardware.scad>
+include <../addon/terminal.scad>
 
 // -------  terminalM3Block test
 module test_terminalM3Block() {
@@ -68,7 +68,7 @@ for (usetype = [HT, FT ])
 
 // =================== UNCOMMENT TO RUN
 
-// test_terminalM3Block();
-// test_simpleMammut();
-// test_cubeMammut();
+test_terminalM3Block();
+translate([-150,0,0]) test_simpleMammut();
+translate([100,0,0]) test_cubeMammut();
 

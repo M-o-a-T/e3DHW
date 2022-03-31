@@ -15,12 +15,12 @@
    Documentation extracted by Doxygen 1.8.15 http://www.doxygen.nl/
 */
 
-include <e3DHW_base_lib.scad>
-include <e3DHW_array_lib.scad>
-include <e3DHW_hardware_data.scad>
-include <e3DHW_addon_base.scad>
-include <e3DHW_DIN_rail_lib.scad>
-include <e3DHW_DIN_boxes_lib.scad>
+include <../base/lib.scad>
+include <../base/array.scad>
+include <../data/hardware.scad>
+include <../addon/base.scad>
+include <../DIN/rail.scad>
+include <../DIN/boxes.scad>
 
 // tests rectangleBox() and custom box
 module test_boxes(){
@@ -82,15 +82,15 @@ polyDINSeparator(vertex = myVertex, length = (length), width=xauto, uclip = _use
 module test_terminals(){
 for(m=[28,33,38,43], n = [0, 20, 40, 60, 80, 100]){
    // I wanna strong terminals, not separators, so I use "SCF" clip and length = 12:
-       my_separator ("SCF", length = 12, large = DINWIDTHS, height = m, w=n, x=n*5, y=(m-28)*20, rot = norot);
-        translate([n*5,(m-28)*20,0])linear_extrude(height = 1) text(str(m,"-",n,"%"));
+       my_separator ("SCF", length = 12, large = DINWIDTHS, height = m, w=n, x=n*5, y=m*20-530, rot = [-90,180,0]);
+        translate([n*5-65,m*20-545,0])linear_extrude(height = 1) text(str(m,"-",n,"%"));
       }
    }
 
 // test boxDINSeparator with all DIN clips (min length).
 module test_boxDINSeparator1() {
 for(i=[0:get_clipCount()-1]){
-  let(clip =get_Key0(i)){
+  let(clip =get_Key0(i,_DINCLIPS)){
      boxDINSeparator(length=get_min_h(clip), uclip = clip, width= DINWIDTHS, top = DINHTOP, fill = 0, y= i*100, rot=[90,0,0]);
       #translate([-40,i*100,0])linear_extrude(height = 1)text(clip);
      }
@@ -100,7 +100,7 @@ for(i=[0:get_clipCount()-1]){
 // test boxDINSeparator standard 1 to 19 mm, fill decrescent
 module test_boxDINSeparator2() {
 for(i=[0:6]){
-boxDINSeparator(length=3*i + 1, width= DINWIDTHS, top = DINTOP, fill = max(0, 100-i*20), x = 150, y= i*100, rot=[90,0,0]);
+boxDINSeparator(length=3*i + 1, width= DINWIDTHS, top = DINTOP, fill = max(0, 100-i*20), x = 0, y= i*100, rot=[90,0,0]);
    #translate([250,i*100,0])linear_extrude(height = 1)text(str("L= ", 3*i + 1," fill= ",max(0,(100-i*20))));
    }
 }
@@ -119,7 +119,8 @@ module test_DINboxes() {
 // test  3 bigDINBox()
 module test_bigDINBox() {
 bigDINBox(size_hm = 14, top=DINPOT, topFill= 79.1, base_width=100); // wide (mm 100) without TOP
-translate([150,0,0]) bigDINBox(size_hm = 14, top=DINTOP, base_width=DIN_BOX_TOP_WIDTH);  // smallest (mm 45) with TOP
+// TODO the +1 is annoying
+translate([150,0,0]) bigDINBox(size_hm = 14, top=DINTOP, base_width=DIN_BOX_TOP_WIDTH+1);  // smallest (mm 45) with TOP; 
 translate([300,0,0]) bigDINBox(size_hm = 14, top=DINHTOP, base_width=100);  // wide (mm 100) with top
 }
 
@@ -133,12 +134,12 @@ module test_lidStyle() {
 
 // =================== UNCOMMENT TO RUN
 
-// test_boxes();
-// custom_box();
-// test_terminals();
-// test_boxDINSeparator1();
-// test_boxDINSeparator2();
-// test_DINboxes();
-// test_bigDINBox();
-// test_lidStyle();
+translate([-70,-100,0]) test_boxes();
+custom_box();
+translate([150,0,0]) test_terminals();
+translate([650,0,0]) test_boxDINSeparator1();
+translate([770,0,0]) test_boxDINSeparator2();
+translate([0,-200,0]) test_DINboxes();
+translate([-400,0,0]) test_bigDINBox();
+translate([-200,-200,0]) test_lidStyle();
 

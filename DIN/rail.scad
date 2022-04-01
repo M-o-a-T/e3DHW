@@ -332,7 +332,7 @@ module dinRailExtraMSpring(h,d){
 
 // writes the signature
 module _do_signc(tx){
-   translate([0,-18,-0.05])rotate([0,0,90])
+   if($preview) translate([0,-18,-0.05])rotate([0,0,90])
    resize(newsize=[32,4.5,_text_add_relief+0.05])   linear_extrude(height=2) text(, font = _TEXTFONT, text= str(tx), halign ="center");
 }
 

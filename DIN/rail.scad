@@ -134,15 +134,15 @@ OPTION_RAIL = 80;  ///< if OPTION_RAIL > 0, the DIN rail trace is added.
  @param h vertical size
  @param d for "SCB","SPC","SCC" it is the PCB mount holes distance, else is total size. See get_ClipWidth().
 */
-module do_DINClip(clip, h, d, x=0, y=0, rot = [0,0,0]){
+module do_DINClip(clip, h, d, x=0, y=0, rot = [0,0,0], off=0){
  translate([x,y,0])rotate(rot)union(){
- if (clip == "SCB") dinRailBasicScrew(h,d); else
- if (clip == "SPC") dinRailCenterSpring(h,d); else
- if (clip == "SCC") dinRailCenterScrew(h,d); else
- if (clip == "SPF") dinRailFlatSpring(h,d); else
- if (clip == "SCF") dinRailFlatScrew(h,d); else
- if (clip == "NSS") dinRailSmallNoSpring(h,d); else
- if (clip == "MSX") dinRailExtraMSpring(h,d); else
+ if (clip == "SCB") dinRailBasicScrew(h,d,off); else
+ if (clip == "SPC") dinRailCenterSpring(h,d,off); else
+ if (clip == "SCC") dinRailCenterScrew(h,d,off); else
+ if (clip == "SPF") dinRailFlatSpring(h,d,off); else
+ if (clip == "SCF") dinRailFlatScrew(h,d,off); else
+ if (clip == "NSS") dinRailSmallNoSpring(h,d,off); else
+ if (clip == "MSX") dinRailExtraMSpring(h,d,off); else
     assert(false, str("the DIN clip code '", clip, "' is not valid"));
  if (OPTION_RAIL > 0) %translate([ d* get_xm(clip) + get_xq(clip) +get_exd(clip)/2 + DINSL/2, -get_rail2top(clip),0])rotate([0,0,180])linear_extrude(OPTION_RAIL)import("../contrib/dinprofile.dxf");
   }
@@ -201,7 +201,7 @@ function get_H(hm)= (hm*9)-0.5;
  @param h = size (min 9 mm for washer size)
  @param d = PCB mount holes distance (min 30 mm)
  */
-module dinRailBasicScrew(h, d) {
+module dinRailBasicScrew(h, d, off=0) {
    assert ( d >= get_min_d("SCB"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCB"),"."));
    assert ( h >= get_min_h("SCB"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCB"),"."));
    translate([d+get_exd("SCB")/2,0,0])rotate([0,0,-90])translate([2,-d+33.5,0])
@@ -219,13 +219,13 @@ module dinRailBasicScrew(h, d) {
  @param h = size (min 8 mm)
  @param d = PCB mount holes distance (min 48 mm)
  */
-module dinRailCenterSpring(h, d){
+module dinRailCenterSpring(h, d, off=0){
    assert ( d >= get_min_d("SPC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPC"),"."));
    assert ( h >= get_min_h("SPC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPC"),"."));
-   _y = (d-40)/2;  // d+get_exd("SPC")
+   _y = (d-40)/2+off;  // d+get_exd("SPC")
    translate([d+get_exd("SPC"),0,0])rotate([0,0,-90])translate([13,-d/2+20,0]) union(){
             _din_spring(h, 30, _y,"C",d);
-            translate([0,-1.5,0])_top_center(h,d, nose=2);
+            translate([0,-1.5,0])_top_center(h,d, off, nose=2);
             }
  }
 
@@ -235,12 +235,12 @@ module dinRailCenterSpring(h, d){
  @param h = size (min 9 mm for washer size)
  @param d = PCB mount holes distance (min 50 mm)
  */
-module dinRailCenterScrew(h, d) {
+module dinRailCenterScrew(h, d, off=0) {
     assert ( d >= get_min_d("SCC"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCC"),"."));
    assert ( h >= get_min_h("SCC"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCC"),"."));
    translate([d+get_exd("SCC"),0,0])rotate([0,0,-90])translate([13,-d/2+19.5,0])union(){
           _din_screw(h, 30,"C",d);
-          translate([0,-1,0])_top_center(h,d);
+          translate([0,-1,0])_top_center(h,d, off);
       }
 }
 
@@ -251,13 +251,13 @@ module dinRailCenterScrew(h, d) {
  @param h = size (min 4 mm)
  @param d = TOP size (min 55 mm)
  */
-module dinRailFlatSpring(h, d){
+module dinRailFlatSpring(h, d, off=0){
    assert ( d >= get_min_d("SPF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SPF"),"."));
    assert ( h >= get_min_h("SPF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SPF"),"."));
    _y = (d-48)/2;
     translate([d+get_exd("SPF"),0,0])rotate([0,0,-90])translate([8,-(d-11-37)/2,0]) union(){
-              _din_spring(h, 30, _y,"F",d);
-              translate([0,-1.5,0])_top_center(h,d-8,0, 1);
+              _din_spring(h, 30, _y-off,"F",d);
+              translate([0,-1.5,0])_top_center(h,d-8, off, 0, 1);
               }
  }
 
@@ -267,12 +267,12 @@ module dinRailFlatSpring(h, d){
  @param h = size (min 9 mm)
  @param d = TOP size (min 50 mm, no holes)
  */
-module dinRailFlatScrew(h, d) {
+module dinRailFlatScrew(h, d, off=0) {
    assert ( d >= get_min_d("SCF"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("SCF"),"."));
    assert ( h >= get_min_h("SCF"), str("parameter (h) too small (",h,") Required min. ",get_min_h("SCF"),"."));
    translate([d+get_exd("SCF"),0,0])rotate([0,0,-90])translate([8,-(d-10-37)/2,0])union(){
               _din_screw(h, 30,"F",d);
-              translate([0,-1,0])_top_center(h,d-8,0);
+              translate([0,-1,0])_top_center(h,d-8,0, off);
              }
 }
 
@@ -283,7 +283,7 @@ module dinRailFlatScrew(h, d) {
  @param h = size (any)
  @param d = long (min 45 mm, no holes)
  */
-module dinRailSmallNoSpring(h,d){
+module dinRailSmallNoSpring(h,d, off=0){
    assert ( d >= get_min_d("NSS"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("NSS"),"."));
    assert ( h >= get_min_h("NSS"), str("parameter (h) too small (",h,") Required min. ",get_min_h("NSS"),"."));
   _l1 = (d-45)/2; // left space
@@ -307,7 +307,7 @@ module dinRailSmallNoSpring(h,d){
   <i>note The required metallic springs can be built using harmonic steel wire (0.6-1 mm). I use paper clips in soft steel wire (mm 0.9), easy to bend with pliers. The simplest form is circular: one or two turns of the indicated measures (mm 20x22), but you can indulge yourself using imaginative forms.</i>
   \image html spring.jpg
  */
-module dinRailExtraMSpring(h,d){
+module dinRailExtraMSpring(h,d, off=0){
    assert ( d >= get_min_d("MSX"), str("parameter (d) too small (",d,"). Required min. ",get_min_d("MSX"),"."));
    assert ( h >= get_min_h("MSX"), str("parameter (h) too small (",h,") Required min. ",get_min_h("MSX"),"."));
    _splarge= 22;  // metal spring, z limit: splarge + 4 (26 mm)
@@ -359,16 +359,18 @@ difference(){
 
 // spring definition
 module _din_spring(h, d, dist,t,y){
+    slit_len=1.85;
+    hlift=2;
 _DinRailMountSpring = [
 [0,-(d-30)],[0,6-(d-30)], [5,9-(d-30)],[5,27],[0,30],[0,36],[0.1,36],[0.1,41.5],
-// alternative: the action hook
-[12,41.5],[13,42],[13,dist+43+4], [10,dist+43+4], [10,dist+45+4], [15.5,dist+46+4],
+// alternative: the action hoo3.5k
+[12,41.5],[13,42],[13-hlift,dist+43+4], [10-hlift,dist+43+4], [10-hlift,dist+45+4], [15-hlift,dist+46+4],
 // alternative: no action hook
  // [10,41.5],[13,42],[15.5,42],
-[15.25,39], [13.5,38], [13,38], [12.75,40],
-[2,40], [2,39.75], [2,36.75],[2.25,36.25], [11.5,39.25],
-[11.5,35], [10,34], [10,9], [11.5,8], [11.5,4.75],
-[12.75,4.75], [13.25,6.5], [13.75,6.5], [15.5,5.5],
+[15.25,39], [13.5,38], [13,38], [12.75,39.5],
+[2,40], [2,39.75], [2,36.75],[2.25,36.25], [11.5,38.5],
+[11.5,35], [10,34], [10,9], [11.5,8], [11.5,6.5-slit_len],
+[12.75,6.5-slit_len], [13.25,6.5], [13.75,6.5], [15.5,5.5],
 [15.5,2], [15,1], [13,0],[8,-(d-30)]];
 
      union(){
@@ -379,10 +381,11 @@ _DinRailMountSpring = [
 }
 
 // upper clip part
-module _top_center(h, d, z=5, nose = 0){
+module _top_center(h, d, off=0, z=5, nose = 0){
  _L= d + 8;
- _DinRailTop = [[-4,_L/2 -36/2-4.5],[0.01,0],[0.01, - 39.5],[-1, - 39.5],[-4,-_L/2- 36/2-4.5 ],[-8-z, -_L/2- 36/2 -4.5],[-8-z, -_L/2- 36/2+8-4.5],[-8, -_L/2- 36/2+11 -4.5],[-8, _L/2- 36/2 -11-4.5],[-8-z, _L/2- 36/2 -8-4.5],[-8-z, _L/2- 36/2-4.5]];
-  _Safe =[[-7.6,-43],[-7.6,-50.5],[28, -46]];
+ _DinRailTop = [[-4,_L/2 -36/2-4.5+off],[0.01,0],[0.01, - 39.5],[-1, - 39.5],[-4,-_L/2- 36/2-4.5 +off],[-8-z, -_L/2- 36/2 -4.5+off],[-8-z, -_L/2- 36/2+8-4.5+off],[-8, -_L/2- 36/2+11 -4.5+off],[-8, _L/2- 36/2 -11-4.5+off],[-8-z, _L/2- 36/2 -8-4.5+off],[-8-z, _L/2- 36/2-4.5+off]];
+ // XXX nose
+  _Safe =[[-7.6,-43],[-7.6,-50.35],[27, -43.5]];
   $fn=32;
 difference(){
    union(){
